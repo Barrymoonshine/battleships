@@ -13,14 +13,43 @@ const GameBoardController = (() => {
     return board;
   };
 
-  const placeShip = (board, row, column, ship) => {
-    // Check if there is horizontal space to place the ship
-    // Check if there is already a ship in the selected cells
-    // If not, place ship
+  const areCellsFree = (board, horizontal, row, column, ship) => {
+    if (horizontal) {
+      for (let i = column; i < column + ship.length; i += 1) {
+        if (board[row][i] === '') {
+          // Do nothing, continue with loop as cell is empty
+        } else if (board[row][i] === 'S') {
+          // At least one cell is occupied so ship can't be placed
+          return false;
+        }
+      }
+    }
+    if (!horizontal) {
+      for (let i = row; i < row + ship.length; i += 1) {
+        if (board[i][column] === '') {
+          // Do nothing, continue with loop as cell is empty
+        } else if (board[i][column] === 'S') {
+          // At least one cell is occupied so ship can't be placed
+          return false;
+        }
+      }
+    }
+    return true;
+  };
 
-    // column + length of ship to place horizontally
-    for (let i = column; i < column + ship.length; i += 1) {
-      board[row][i] = 'S';
+  const placeShip = (board, horizontal, row, column, ship) => {
+    // Check if there is horizontal space to place the ship
+    if (!areCellsFree(board, horizontal, row, column, ship)) {
+      return 'Error there is already a ship in this location';
+    }
+    if (horizontal) {
+      for (let i = column; i < column + ship.length; i += 1) {
+        board[row][i] = 'S';
+      }
+    } else if (!horizontal) {
+      for (let i = row; i < row + ship.length; i += 1) {
+        board[i][column] = 'S';
+      }
     }
     return board;
   };

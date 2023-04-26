@@ -31,13 +31,15 @@ test('ShipController correctly creates and transforms ship objects', () => {
 test('GameBoardController correctly creates and transforms the game boards', () => {
   const testBoard = GameBoardController.createBoard();
   const testShip = ShipController.ShipFactory(5);
+  const testShipTwo = ShipController.ShipFactory(3);
   // 10x 10 Game board is correctly created as 2d array
   // by testing that the first and last elements are empty strings
   expect(testBoard[0][0]).toBe('');
   expect(testBoard[9][9]).toBe('');
+
   // Ship has been correctly placed by testing ship is present in updated cells
   expect(
-    GameBoardController.placeShip(testBoard, 3, 2, testShip)
+    GameBoardController.placeShip(testBoard, true, 3, 2, testShip)
   ).toStrictEqual([
     ['', '', '', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', '', '', ''],
@@ -50,4 +52,30 @@ test('GameBoardController correctly creates and transforms the game boards', () 
     ['', '', '', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', '', '', ''],
   ]);
+
+  // Ship can't be placed as cells are already occupied
+  expect(GameBoardController.placeShip(testBoard, true, 3, 2, testShip)).toBe(
+    'Error there is already a ship in this location'
+  );
+
+  // Place ship vertically
+  expect(
+    GameBoardController.placeShip(testBoard, false, 6, 1, testShipTwo)
+  ).toStrictEqual([
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', 'S', 'S', 'S', 'S', 'S', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', 'S', '', '', '', '', '', '', '', ''],
+    ['', 'S', '', '', '', '', '', '', '', ''],
+    ['', 'S', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+  ]);
+
+  // Ship can't be placed vertically as cells are already occupied
+  expect(
+    GameBoardController.placeShip(testBoard, false, 6, 1, testShipTwo)
+  ).toStrictEqual('Error there is already a ship in this location');
 });
