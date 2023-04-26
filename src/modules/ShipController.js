@@ -1,23 +1,46 @@
 const ShipController = (() => {
-  const ShipFactory = (length, hits = 0, sunk = false) => ({
+  const testShipContainer = [];
+
+  const getShips = () => testShipContainer;
+
+  const ShipFactory = (length, name, hits = 0, sunk = false) => ({
     length,
+    name,
     hits,
     sunk,
   });
 
-  const hitShip = (ship) => {
-    ship.hits += 1;
-    return ship;
+  const createShip = (length, name) => {
+    const newShip = ShipFactory(length, name);
+    testShipContainer.push(newShip);
   };
 
-  const isSunk = (ship) => {
-    if (ship.length === ship.hits) {
-      ship.sunk = true;
+  const findShip = (shipName) => {
+    const targetShip = testShipContainer.find((item) => item.name === shipName);
+    return targetShip;
+  };
+
+  const hitShip = (shipName) => {
+    const targetShip = findShip(shipName);
+    targetShip.hits += 1;
+    return targetShip;
+  };
+
+  const isSunk = (shipName) => {
+    const targetShip = findShip(shipName);
+    if (targetShip.length === targetShip.hits) {
+      targetShip.sunk = true;
     }
-    return ship.sunk;
+    return targetShip.sunk;
   };
 
-  return { ShipFactory, hitShip, isSunk };
+  return {
+    getShips,
+    findShip,
+    createShip,
+    hitShip,
+    isSunk,
+  };
 })();
 
 export default ShipController;

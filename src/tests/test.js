@@ -2,36 +2,39 @@ import ShipController from '../modules/ShipController.js';
 import GameBoardController from '../modules/GameBoardController.js';
 
 test('ShipController correctly creates and transforms ship objects', () => {
-  const testShip = ShipController.ShipFactory(5);
+  const testShip = ShipController.createShip(5, 'test-ship');
+
   // Ship object is correctly created
-  expect(testShip).toStrictEqual({
+  expect(ShipController.findShip('test-ship')).toStrictEqual({
     length: 5,
+    name: 'test-ship',
     hits: 0,
     sunk: false,
   });
   // Ship hits are correctly incremented
-  expect(ShipController.hitShip(testShip)).toStrictEqual({
+  expect(ShipController.hitShip('test-ship')).toStrictEqual({
     length: 5,
+    name: 'test-ship',
     hits: 1,
     sunk: false,
   });
   // Ship is correctly still afloat
-  expect(ShipController.isSunk(testShip)).toBe(false);
+  expect(ShipController.isSunk('test-ship')).toBe(false);
 
   // Sink ship
-  ShipController.hitShip(testShip);
-  ShipController.hitShip(testShip);
-  ShipController.hitShip(testShip);
-  ShipController.hitShip(testShip);
+  ShipController.hitShip('test-ship');
+  ShipController.hitShip('test-ship');
+  ShipController.hitShip('test-ship');
+  ShipController.hitShip('test-ship');
 
   // Ship is now correctly sunk!
-  expect(ShipController.isSunk(testShip)).toBe(true);
+  expect(ShipController.isSunk('test-ship')).toBe(true);
 });
 
-test('GameBoardController correctly creates and transforms the game boards', () => {
+test('GameBoardController correctly creates and transforms the game board', () => {
   const testBoard = GameBoardController.createBoard();
-  const testShip = ShipController.ShipFactory(5);
-  const testShipTwo = ShipController.ShipFactory(3);
+  const testShipTwo = ShipController.createShip(5, 'test-ship-two');
+  const testShipThree = ShipController.createShip(3, 'test-ship-three');
   // 10x 10 Game board is correctly created as 2d array
   // by testing that the first and last elements are empty strings
   expect(testBoard[0][0]).toBe('');
@@ -39,12 +42,29 @@ test('GameBoardController correctly creates and transforms the game boards', () 
 
   // Ship has been correctly placed by testing ship is present in updated cells
   expect(
-    GameBoardController.placeShip(testBoard, true, 3, 2, testShip)
+    GameBoardController.placeShip(
+      testBoard,
+      true,
+      3,
+      2,
+      ShipController.findShip('test-ship-two')
+    )
   ).toStrictEqual([
     ['', '', '', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', '', '', ''],
-    ['', '', 'S', 'S', 'S', 'S', 'S', '', '', ''],
+    [
+      '',
+      '',
+      'test-ship-two',
+      'test-ship-two',
+      'test-ship-two',
+      'test-ship-two',
+      'test-ship-two',
+      '',
+      '',
+      '',
+    ],
     ['', '', '', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', '', '', ''],
@@ -54,28 +74,57 @@ test('GameBoardController correctly creates and transforms the game boards', () 
   ]);
 
   // Ship can't be placed as cells are already occupied
-  expect(GameBoardController.placeShip(testBoard, true, 3, 2, testShip)).toBe(
-    'Error there is already a ship in this location'
-  );
+  expect(
+    GameBoardController.placeShip(
+      testBoard,
+      true,
+      3,
+      2,
+      ShipController.findShip('test-ship-two')
+    )
+  ).toBe('Error there is already a ship in this location');
 
   // Place ship vertically
   expect(
-    GameBoardController.placeShip(testBoard, false, 6, 1, testShipTwo)
+    GameBoardController.placeShip(
+      testBoard,
+      false,
+      6,
+      1,
+      ShipController.findShip('test-ship-three')
+    )
   ).toStrictEqual([
     ['', '', '', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', '', '', ''],
-    ['', '', 'S', 'S', 'S', 'S', 'S', '', '', ''],
+    [
+      '',
+      '',
+      'test-ship-two',
+      'test-ship-two',
+      'test-ship-two',
+      'test-ship-two',
+      'test-ship-two',
+      '',
+      '',
+      '',
+    ],
     ['', '', '', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', '', '', ''],
-    ['', 'S', '', '', '', '', '', '', '', ''],
-    ['', 'S', '', '', '', '', '', '', '', ''],
-    ['', 'S', '', '', '', '', '', '', '', ''],
+    ['', 'test-ship-three', '', '', '', '', '', '', '', ''],
+    ['', 'test-ship-three', '', '', '', '', '', '', '', ''],
+    ['', 'test-ship-three', '', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', '', '', ''],
   ]);
 
   // Ship can't be placed vertically as cells are already occupied
   expect(
-    GameBoardController.placeShip(testBoard, false, 6, 1, testShipTwo)
+    GameBoardController.placeShip(
+      testBoard,
+      false,
+      6,
+      1,
+      ShipController.findShip('test-ship-three')
+    )
   ).toStrictEqual('Error there is already a ship in this location');
 });

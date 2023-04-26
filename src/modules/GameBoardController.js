@@ -18,7 +18,7 @@ const GameBoardController = (() => {
       for (let i = column; i < column + ship.length; i += 1) {
         if (board[row][i] === '') {
           // Do nothing, continue with loop as cell is empty
-        } else if (board[row][i] === 'S') {
+        } else if (board[row][i] !== '') {
           // At least one cell is occupied so ship can't be placed
           return false;
         }
@@ -28,7 +28,7 @@ const GameBoardController = (() => {
       for (let i = row; i < row + ship.length; i += 1) {
         if (board[i][column] === '') {
           // Do nothing, continue with loop as cell is empty
-        } else if (board[i][column] === 'S') {
+        } else if (board[i][column] !== '') {
           // At least one cell is occupied so ship can't be placed
           return false;
         }
@@ -44,11 +44,11 @@ const GameBoardController = (() => {
     }
     if (horizontal) {
       for (let i = column; i < column + ship.length; i += 1) {
-        board[row][i] = 'S';
+        board[row][i] = ship.name;
       }
     } else if (!horizontal) {
       for (let i = row; i < row + ship.length; i += 1) {
-        board[i][column] = 'S';
+        board[i][column] = ship.name;
       }
     }
     return board;
