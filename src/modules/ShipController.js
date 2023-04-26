@@ -5,13 +5,13 @@ const ShipController = (() => {
     sunk,
   });
 
-  const createShip = (length) => ShipFactory(length);
-
   const hitShip = (ship) => {
     ship.hits += 1;
   };
 
-  return { createShip };
+  const isSunk = (ship) => ship.sunk;
+
+  return { ShipFactory, hitShip, isSunk };
 })();
 
 export default ShipController;

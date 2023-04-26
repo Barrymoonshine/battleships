@@ -1,21 +1,25 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: './src/index.js',
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist"),
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist'),
   },
-  mode: "development",
+  mode: 'development',
   module: {
     rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-env"],
+            presets: [['@babel/preset-env', { targets: 'defaults' }]],
           },
         },
       },
