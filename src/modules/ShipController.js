@@ -7,9 +7,15 @@ const ShipController = (() => {
 
   const hitShip = (ship) => {
     ship.hits += 1;
+    return ship;
   };
 
-  const isSunk = (ship) => ship.sunk;
+  const isSunk = (ship) => {
+    if (ship.length === ship.hits) {
+      ship.sunk = true;
+    }
+    return ship.sunk;
+  };
 
   return { ShipFactory, hitShip, isSunk };
 })();

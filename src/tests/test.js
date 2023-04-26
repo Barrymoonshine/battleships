@@ -3,13 +3,13 @@ import ShipController from '../modules/ShipController.js';
 test('ShipController module correctly creates and transforms ship objects', () => {
   const carrier = ShipController.ShipFactory(5);
   // Ship object is correctly created
-  expect(carrier).toBe({
+  expect(carrier).toStrictEqual({
     length: 5,
     hits: 0,
     sunk: false,
   });
   // Ship hits are correctly incremented
-  expect(ShipController.hitShip(carrier)).toBe({
+  expect(ShipController.hitShip(carrier)).toStrictEqual({
     length: 5,
     hits: 1,
     sunk: false,
