@@ -1,12 +1,12 @@
-const PlayerController = () => {
-  let isPlayerOneActive = true;
-  const checkActivePlayer = () => isPlayerOneActive;
+const PlayerController = (() => {
+  let playerOneActive = true;
+  const isPlayerOneActive = () => playerOneActive;
   const switchActivePlayer = () => {
-    isPlayerOneActive = !isPlayerOneActive;
-    return isPlayerOneActive;
+    playerOneActive = !playerOneActive;
+    return playerOneActive;
   };
 
-  return { checkActivePlayer, switchActivePlayer };
-};
+  return { isPlayerOneActive, switchActivePlayer };
+})();
 
 export default PlayerController;

@@ -1,5 +1,6 @@
 import ShipController from '../modules/ShipController.js';
 import GameBoardController from '../modules/GameBoardController.js';
+import PlayerController from '../modules/PlayerController.js';
 
 test('ShipController correctly creates and transforms ship objects', () => {
   const testShip = ShipController.createShip(5, 'test-ship');
@@ -180,12 +181,7 @@ test('GameBoardController correctly creates and transforms the game board', () =
   expect(GameBoardController.areAllShipsSunk(allShipsSunkBoard)).toBe(true);
 });
 
-// test('Player controller successfully switches rounds and processes AI moves', () => {
-//   // Player one goes first"
-//   expect(ShipController.findShip('test-ship-two')).toStrictEqual({
-//     length: 5,
-//     name: 'test-ship-two',
-//     hits: 1,
-//     sunk: false,
-//   });
-// });
+test('Player controller successfully switches rounds and processes AI moves', () => {
+  // Player one goes first"
+  expect(PlayerController.isPlayerOneActive()).toBe(true);
+});
