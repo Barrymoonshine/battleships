@@ -182,6 +182,9 @@ test('GameBoardController correctly creates and transforms the game board', () =
 });
 
 test('Player controller successfully switches rounds and processes AI moves', () => {
-  // Player one goes first"
+  // Player one goes first
   expect(PlayerController.isPlayerOneActive()).toBe(true);
+  PlayerController.switchActivePlayer();
+  // Player two goes next
+  expect(PlayerController.isPlayerOneActive()).toBe(false);
 });
