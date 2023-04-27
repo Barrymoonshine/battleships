@@ -1,9 +1,4 @@
-import "./styles/global-style.css";
+import './styles/global-style.css';
+import gameFlowController from './modules/GameFlowController';
 
-const container = document.getElementById("container");
-
-const webpackTestFuntion = () => {
-  container.innerText = "Hello world";
-};
-
-webpackTestFuntion();
+gameFlowController.startGame();

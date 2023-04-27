@@ -140,7 +140,7 @@ const GameBoardController = (() => {
     }
   };
 
-  const placeAllShips = (board, allShips) => {
+  const placeShipsRandomly = (board, allShips) => {
     allShips.forEach((ship) => {
       handleShipPlacement(ship, board);
     });
@@ -151,7 +151,7 @@ const GameBoardController = (() => {
     placeShip,
     receiveAttack,
     areAllShipsSunk,
-    placeAllShips,
+    placeShipsRandomly,
   };
 })();
 

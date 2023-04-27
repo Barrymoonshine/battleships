@@ -1,6 +1,8 @@
 import GameBoardController from './GameBoardController.js';
 
 const PlayerController = (() => {
+  const PlayerFactory = (name) => ({ name });
+
   let playerOneActive = true;
   const isPlayerOneActive = () => playerOneActive;
   const switchActivePlayer = () => {
@@ -25,6 +27,7 @@ const PlayerController = (() => {
   };
 
   return {
+    PlayerFactory,
     isPlayerOneActive,
     switchActivePlayer,
     resetActivePlayer,
