@@ -1,4 +1,5 @@
 const ShipController = (() => {
+  // Array for storing ships created as part of testing suite
   const testShipContainer = [];
 
   const getShips = () => testShipContainer;

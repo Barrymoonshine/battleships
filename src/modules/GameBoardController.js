@@ -1,9 +1,11 @@
+import ShipController from './ShipController.js';
+
 const GameBoardController = (() => {
   const rows = 10;
   const columns = 10;
 
   const createBoard = (board = []) => {
-    // Nested for loop to create game board as a 2d array
+    // Nested for loop to create a game board as a 2d array
     for (let i = 0; i < rows; i += 1) {
       board[i] = [];
       for (let j = 0; j < columns; j += 1) {
@@ -54,7 +56,23 @@ const GameBoardController = (() => {
     return board;
   };
 
-  return { createBoard, placeShip };
+  const receiveAttack = (board, row, column) => {
+    if (board[row][column] === 'M' || board[row][column] === 'H') {
+      // Miss or hit already present, do nothing
+    } else if (board[row][column] === '') {
+      // Cell empty, place a missed shot
+      board[row][column] = 'M';
+    } else {
+      // Else cell contains ship, process a hit!
+      const shipName = board[row][column];
+      ShipController.hitShip(shipName);
+      board[row][column] = 'H';
+      console.log(board);
+    }
+    return board;
+  };
+
+  return { createBoard, placeShip, receiveAttack };
 })();
 
 export default GameBoardController;

@@ -127,4 +127,37 @@ test('GameBoardController correctly creates and transforms the game board', () =
       ShipController.findShip('test-ship-three')
     )
   ).toStrictEqual('Error there is already a ship in this location');
+
+  // Board correctly updated with a successful hit
+  expect(GameBoardController.receiveAttack(testBoard, 3, 2)).toStrictEqual([
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    [
+      '',
+      '',
+      'H',
+      'test-ship-two',
+      'test-ship-two',
+      'test-ship-two',
+      'test-ship-two',
+      '',
+      '',
+      '',
+    ],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', 'test-ship-three', '', '', '', '', '', '', '', ''],
+    ['', 'test-ship-three', '', '', '', '', '', '', '', ''],
+    ['', 'test-ship-three', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+  ]);
+
+  // Ship correctly registers hit
+  expect(ShipController.findShip('test-ship-two')).toStrictEqual({
+    length: 5,
+    name: 'test-ship-two',
+    hits: 1,
+    sunk: false,
+  });
 });
