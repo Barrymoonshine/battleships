@@ -58,8 +58,9 @@ const GameBoardController = (() => {
 
   const receiveAttack = (board, row, column) => {
     if (board[row][column] === 'M' || board[row][column] === 'H') {
-      // Miss or hit already present, do nothing
-    } else if (board[row][column] === '') {
+      // Miss or hit already present, do nothing and exit function
+    }
+    if (board[row][column] === '') {
       // Cell empty, place a missed shot
       board[row][column] = 'M';
     } else {
@@ -67,12 +68,30 @@ const GameBoardController = (() => {
       const shipName = board[row][column];
       ShipController.hitShip(shipName);
       board[row][column] = 'H';
-      console.log(board);
     }
     return board;
   };
 
-  return { createBoard, placeShip, receiveAttack };
+  const areAllShipsSunk = (board) => {
+    // Ships occupy a total of 17 cells
+    let totalHits = 0;
+    board.forEach((row) => {
+      row.forEach((columnCell) => {
+        if (columnCell === 'H') {
+          totalHits += 1;
+        }
+      });
+    });
+
+    return totalHits === 17;
+  };
+
+  return {
+    createBoard,
+    placeShip,
+    receiveAttack,
+    areAllShipsSunk,
+  };
 })();
 
 export default GameBoardController;

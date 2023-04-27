@@ -35,6 +35,18 @@ test('GameBoardController correctly creates and transforms the game board', () =
   const testBoard = GameBoardController.createBoard();
   const testShipTwo = ShipController.createShip(5, 'test-ship-two');
   const testShipThree = ShipController.createShip(3, 'test-ship-three');
+  const allShipsSunkBoard = [
+    ['', '', '', '', '', 'H', 'H', 'H', 'H', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', 'H', 'H', 'H', 'H', 'H', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', 'H', '', '', '', '', 'H', '', '', ''],
+    ['', 'H', '', '', '', '', 'H', '', '', ''],
+    ['', 'H', '', '', '', '', 'H', '', '', ''],
+    ['', '', '', 'H', 'H', '', '', '', '', ''],
+  ];
   // 10x 10 Game board is correctly created as 2d array
   // by testing that the first and last elements are empty strings
   expect(testBoard[0][0]).toBe('');
@@ -160,4 +172,20 @@ test('GameBoardController correctly creates and transforms the game board', () =
     hits: 1,
     sunk: false,
   });
+
+  // All ships are not sunk
+  expect(GameBoardController.areAllShipsSunk(testBoard)).toBe(false);
+
+  // All ships are sunk
+  expect(GameBoardController.areAllShipsSunk(allShipsSunkBoard)).toBe(true);
 });
+
+// test('Player controller successfully switches rounds and processes AI moves', () => {
+//   // Player one goes first"
+//   expect(ShipController.findShip('test-ship-two')).toStrictEqual({
+//     length: 5,
+//     name: 'test-ship-two',
+//     hits: 1,
+//     sunk: false,
+//   });
+// });
