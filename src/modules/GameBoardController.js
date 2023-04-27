@@ -1,4 +1,5 @@
 import ShipController from './ShipController.js';
+import PlayerController from './PlayerController.js';
 
 const GameBoardController = (() => {
   const rows = 10;
@@ -53,12 +54,14 @@ const GameBoardController = (() => {
         board[i][column] = ship.name;
       }
     }
+    PlayerController.switchActivePlayer();
     return board;
   };
 
   const receiveAttack = (board, row, column) => {
     if (board[row][column] === 'M' || board[row][column] === 'H') {
       // Miss or hit already present, do nothing and exit function
+      return false;
     }
     if (board[row][column] === '') {
       // Cell empty, place a missed shot
@@ -82,7 +85,6 @@ const GameBoardController = (() => {
         }
       });
     });
-
     return totalHits === 17;
   };
 

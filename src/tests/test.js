@@ -174,17 +174,49 @@ test('GameBoardController correctly creates and transforms the game board', () =
     sunk: false,
   });
 
+  // Hit already present in cell
+  expect(GameBoardController.receiveAttack(testBoard, 3, 2)).toBe(false);
+
   // All ships are not sunk
   expect(GameBoardController.areAllShipsSunk(testBoard)).toBe(false);
 
   // All ships are sunk
   expect(GameBoardController.areAllShipsSunk(allShipsSunkBoard)).toBe(true);
+
+  // Reset active player ahead of player controller tests
+  PlayerController.resetActivePlayer();
 });
 
 test('Player controller successfully switches rounds and processes AI moves', () => {
+  const testBoard = [
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    [
+      '',
+      '',
+      'H',
+      'test-ship-two',
+      'test-ship-two',
+      'test-ship-two',
+      'test-ship-two',
+      '',
+      '',
+      '',
+    ],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', 'test-ship-three', '', '', '', '', '', '', '', ''],
+    ['', 'test-ship-three', '', '', '', '', '', '', '', ''],
+    ['', 'test-ship-three', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+  ];
   // Player one goes first
   expect(PlayerController.isPlayerOneActive()).toBe(true);
   PlayerController.switchActivePlayer();
   // Player two goes next
   expect(PlayerController.isPlayerOneActive()).toBe(false);
+
+  // Ai can place a random move and doesn't hit the same co-ordinates twice
+  expect(PlayerController.generateAiMove(testBoard)).toBe('Successful hit');
 });
