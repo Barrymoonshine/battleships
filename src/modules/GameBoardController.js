@@ -54,7 +54,6 @@ const GameBoardController = (() => {
         board[i][column] = ship.name;
       }
     }
-    PlayerController.switchActivePlayer();
     return board;
   };
 
@@ -72,6 +71,7 @@ const GameBoardController = (() => {
       ShipController.hitShip(shipName);
       board[row][column] = 'H';
     }
+    PlayerController.switchActivePlayer();
     return board;
   };
 
@@ -88,11 +88,70 @@ const GameBoardController = (() => {
     return totalHits === 17;
   };
 
+  const randomNumberGenerator = (min, max) =>
+    Math.floor(Math.random() * (max - min + 1) + min);
+
+  const randomBooleanGenerator = () => Math.random() < 0.5;
+
+  const handleRow = (horizontal, ship) => {
+    let row = randomNumberGenerator(0, 9);
+    const minVal = 0;
+    if (horizontal) {
+      // If the ship is being place horizontally, any row value is valid
+      return row;
+    }
+    // else if the ship is being place vertically,
+    // The row value has to be reduced by the length of the ship to provide
+    // The opportunity for available space
+    row -= ship.length;
+    if (row < minVal) {
+      return minVal;
+    }
+    return row;
+  };
+
+  const handleColumn = (horizontal, ship) => {
+    let column = randomNumberGenerator(0, 9);
+    const minVal = 0;
+    if (!horizontal) {
+      // If the ship is being place vertically, any column value is valid
+      return column;
+    }
+    // else if the ship is being place horizontally,
+    // The column value has to be reduced by the length of the ship to provide
+    // The opportunity for available space
+    column -= ship.length;
+    if (column < minVal) {
+      return minVal;
+    }
+    return column;
+  };
+
+  const handleShipPlacement = (ship, board) => {
+    const horizontal = randomBooleanGenerator();
+    const row = handleRow(horizontal, ship);
+    const column = handleColumn(horizontal, ship);
+    if (!placeShip(board, horizontal, row, column, ship)) {
+      // If space not free, try again with new coordinates
+      handleShipPlacement(ship, board);
+    } else {
+      // Else space free
+      placeShip(board, horizontal, row, column, ship);
+    }
+  };
+
+  const placeAllShips = (board, allShips) => {
+    allShips.forEach((ship) => {
+      handleShipPlacement(ship, board);
+    });
+  };
+
   return {
     createBoard,
     placeShip,
     receiveAttack,
     areAllShipsSunk,
+    placeAllShips,
   };
 })();
 
