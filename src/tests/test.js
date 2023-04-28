@@ -95,7 +95,7 @@ test('GameBoardController correctly creates and transforms the game board', () =
       2,
       ShipController.findShip('test-ship-two')
     )
-  ).toBe('Error there is already a ship in this location');
+  ).toBe(false);
 
   // Place ship vertically
   expect(

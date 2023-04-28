@@ -43,7 +43,7 @@ const GameBoardController = (() => {
   const placeShip = (board, horizontal, row, column, ship) => {
     // Check if there is horizontal space to place the ship
     if (!areCellsFree(board, horizontal, row, column, ship)) {
-      return 'Error there is already a ship in this location';
+      return false;
     }
     if (horizontal) {
       for (let i = column; i < column + ship.length; i += 1) {
@@ -97,7 +97,7 @@ const GameBoardController = (() => {
     let row = randomNumberGenerator(0, 9);
     const minVal = 0;
     if (horizontal) {
-      // If the ship is being place horizontally, any row value is valid
+      // If the ship is being place horizontally, any row value is potentially valid
       return row;
     }
     // else if the ship is being place vertically,
@@ -114,7 +114,7 @@ const GameBoardController = (() => {
     let column = randomNumberGenerator(0, 9);
     const minVal = 0;
     if (!horizontal) {
-      // If the ship is being place vertically, any column value is valid
+      // If the ship is being place vertically, any column value is potentially valid
       return column;
     }
     // else if the ship is being place horizontally,

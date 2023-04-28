@@ -34,6 +34,7 @@ const gameFlowController = (() => {
     // Style cells
     DisplayController.styleCells();
     console.log(playerBoard);
+    console.log(aiBoard);
   };
 
   const clearContainers = () => {
