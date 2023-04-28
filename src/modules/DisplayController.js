@@ -10,7 +10,6 @@ const DisplayController = (() => {
   };
 
   const stylePlayerCells = (cells) => {
-    console.log('cellsstyled');
     for (let i = 0; i < cells.length; i += 1) {
       // if hit
       if (cells[i].innerText === 'H') {
@@ -28,6 +27,7 @@ const DisplayController = (() => {
   };
 
   // Update function later so that AI cells are obscured from view
+  // Other than hits and misses
   const styleAiCells = (cells) => {
     for (let i = 0; i < cells.length; i += 1) {
       // if hit

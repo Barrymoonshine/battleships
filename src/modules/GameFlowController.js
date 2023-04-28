@@ -36,28 +36,36 @@ const gameFlowController = (() => {
     // Get the co-ordinates for the attack and the active board
     const row = +coOrdinates.charAt(0);
     const column = +coOrdinates.charAt(1);
-    const activeBoard = getActiveBoard();
+    let activeBoard = getActiveBoard();
 
-    // Place the attack
+    // Place the attack based on the selected co-ordinates
     GameBoardController.receiveAttack(activeBoard, row, column);
-
-    console.log(activeBoard);
 
     // Clear the container
     DisplayController.clearContainer(aiContainer);
 
     // Render and style the updated board
     DisplayController.renderBoard(activeBoard, aiContainer, 'ai-player');
-    DisplayController.stylePlayerCells(aiPlayerCells);
+    DisplayController.styleAiCells(aiPlayerCells);
 
     // Switch the active player
-    // PlayerController.switchActivePlayer();
-    // Ai plays random move
-    // activeBoard = getActiveBoard();
-    // PlayerController.generateAiMove();
+    PlayerController.switchActivePlayer();
 
-    // Style the board
-    // DisplayController.styleAiCells(aiPlayerCells);
+    // Ai plays random move, update active board
+    activeBoard = getActiveBoard();
+
+    // Generate random move
+    PlayerController.generateAiMove(activeBoard);
+
+    // Clear the container
+    DisplayController.clearContainer(playerContainer);
+
+    // Render and style the updated board
+    DisplayController.renderBoard(playerBoard, playerContainer, 'human-player');
+    DisplayController.stylePlayerCells(humanPlayerCells);
+
+    // Finally switch the active player
+    PlayerController.switchActivePlayer();
   };
 
   const addEvtListeners = () => {
