@@ -28,6 +28,9 @@ const gameFlowController = (() => {
     const aiContainer = document.getElementById('board-container-two');
     DisplayController.renderBoard(playerBoard, playerContainer);
     DisplayController.renderBoard(aiBoard, aiContainer);
+
+    // Style cells
+    DisplayController.styleCells();
   };
 
   return { startGame };
