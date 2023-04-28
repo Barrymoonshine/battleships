@@ -3,33 +3,61 @@ import GameBoardController from '../modules/GameBoardController.js';
 import PlayerController from '../modules/PlayerController.js';
 
 test('ShipController correctly creates and transforms ship objects', () => {
-  const testShip = ShipController.createShip(5, 'test-ship');
+  ShipController.createPlayerShips();
 
   // Ship object is correctly created
-  expect(ShipController.findShip('test-ship')).toStrictEqual({
-    length: 5,
-    name: 'test-ship',
-    hits: 0,
-    sunk: false,
-  });
+  expect(ShipController.getPlayerShips).toStrictEqual([
+    {
+      length: 5,
+      name: 'carrier',
+      hits: 0,
+      sunk: false,
+    },
+    {
+      length: 4,
+      name: 'battleship',
+      hits: 0,
+      sunk: false,
+    },
+    {
+      length: 3,
+      name: 'destroyer',
+      hits: 0,
+      sunk: false,
+    },
+    {
+      length: 3,
+      name: 'submarine',
+      hits: 0,
+      sunk: false,
+    },
+    {
+      length: 2,
+      name: 'patrolBoat',
+      hits: 0,
+      sunk: false,
+    },
+  ]);
   // Ship hits are correctly incremented
-  expect(ShipController.hitShip('test-ship')).toStrictEqual({
+  expect(ShipController.hitShip('carrier')).toStrictEqual({
     length: 5,
-    name: 'test-ship',
+    name: 'carrier',
     hits: 1,
     sunk: false,
   });
   // Ship is correctly still afloat
-  expect(ShipController.isSunk('test-ship')).toBe(false);
+  expect(ShipController.isSunk('carrier')).toBe(false);
 
   // Sink ship
-  ShipController.hitShip('test-ship');
-  ShipController.hitShip('test-ship');
-  ShipController.hitShip('test-ship');
-  ShipController.hitShip('test-ship');
+  ShipController.hitShip('carrier');
+  ShipController.hitShip('carrier');
+  ShipController.hitShip('carrier');
+  ShipController.hitShip('carrier');
 
   // Ship is now correctly sunk!
-  expect(ShipController.isSunk('test-ship')).toBe(true);
+  expect(ShipController.isSunk('carrier')).toBe(true);
+
+  ShipController.resetShips();
 });
 
 test('GameBoardController correctly creates and transforms the game board', () => {

@@ -60,6 +60,7 @@ const GameBoardController = (() => {
   const receiveAttack = (board, row, column) => {
     if (board[row][column] === 'M' || board[row][column] === 'H') {
       // Miss or hit already present, do nothing and exit function
+
       return false;
     }
     if (board[row][column] === '') {
@@ -71,7 +72,6 @@ const GameBoardController = (() => {
       ShipController.hitShip(shipName);
       board[row][column] = 'H';
     }
-    PlayerController.switchActivePlayer();
     return board;
   };
 

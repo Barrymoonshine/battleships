@@ -1,4 +1,9 @@
+import PlayerController from './PlayerController.js';
+
 const ShipController = (() => {
+  let playerShipContainer = [];
+  let aiShipContainer = [];
+
   const ShipFactory = (length, name, hits = 0, sunk = false) => ({
     length,
     name,
@@ -6,24 +11,10 @@ const ShipController = (() => {
     sunk,
   });
 
-  // Test functions
-  const testShipContainer = [];
-
-  const createShip = (length, name) => {
-    const newShip = ShipFactory(length, name);
-    testShipContainer.push(newShip);
+  const resetShips = () => {
+    playerShipContainer = [];
+    aiShipContainer = [];
   };
-
-  const getShips = () => testShipContainer;
-
-  const findShip = (shipName) => {
-    const targetShip = testShipContainer.find((item) => item.name === shipName);
-    return targetShip;
-  };
-
-  // Game functions
-  const playerShipContainer = [];
-  const aiShipContainer = [];
 
   const createPlayerShips = () => {
     const carrier = ShipFactory(5, 'carrier');
@@ -52,6 +43,13 @@ const ShipController = (() => {
   const getPlayerShips = () => playerShipContainer;
   const getAiShips = () => aiShipContainer;
 
+  const findShip = (shipName) => {
+    if (PlayerController.isPlayerOneActive()) {
+      return playerShipContainer.find((item) => item.name === shipName);
+    }
+    return aiShipContainer.find((item) => item.name === shipName);
+  };
+
   const hitShip = (shipName) => {
     const targetShip = findShip(shipName);
     targetShip.hits += 1;
@@ -67,9 +65,8 @@ const ShipController = (() => {
   };
 
   return {
-    getShips,
+    resetShips,
     findShip,
-    createShip,
     createPlayerShips,
     createAiShips,
     hitShip,

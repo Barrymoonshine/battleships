@@ -1,19 +1,45 @@
 const DisplayController = (() => {
-  const cells = document.getElementsByClassName('cells');
-
-  const renderBoard = (board, container) => {
+  const renderBoard = (board, container, player) => {
     board.forEach((row, rowIndex) => {
       row.forEach((columnCell, columnIndex) => {
         container.innerHTML += `
-            <div class="cells" data-index-number="${rowIndex}${columnIndex}">${columnCell}</div>
+            <div class="${player}-cells" data-index-number="${rowIndex}${columnIndex}">${columnCell}</div>
             `;
       });
     });
   };
 
-  const styleCells = () => {
-    for (let i = 0; i < cells.length; i++) {
-      if (cells[i].innerText !== '') {
+  const stylePlayerCells = (cells) => {
+    console.log('cellsstyled');
+    for (let i = 0; i < cells.length; i += 1) {
+      // if hit
+      if (cells[i].innerText === 'H') {
+        cells[i].style.backgroundColor = 'red';
+      }
+      // if miss
+      else if (cells[i].innerText === 'M') {
+        cells[i].style.backgroundColor = 'orange';
+      }
+      // if ship present
+      else if (cells[i].innerText !== '') {
+        cells[i].style.backgroundColor = 'blue';
+      }
+    }
+  };
+
+  // Update function later so that AI cells are obscured from view
+  const styleAiCells = (cells) => {
+    for (let i = 0; i < cells.length; i += 1) {
+      // if hit
+      if (cells[i].innerText === 'H') {
+        cells[i].style.backgroundColor = 'red';
+      }
+      // if miss
+      else if (cells[i].innerText === 'M') {
+        cells[i].style.backgroundColor = 'orange';
+      }
+      // if ship present
+      else if (cells[i].innerText !== '') {
         cells[i].style.backgroundColor = 'blue';
       }
     }
@@ -25,7 +51,12 @@ const DisplayController = (() => {
     }
   };
 
-  return { renderBoard, styleCells, clearContainer };
+  return {
+    renderBoard,
+    stylePlayerCells,
+    styleAiCells,
+    clearContainer,
+  };
 })();
 
 export default DisplayController;

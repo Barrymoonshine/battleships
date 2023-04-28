@@ -23,6 +23,8 @@ const PlayerController = (() => {
       // If a hit or miss already present, try again
       generateAiMove(board);
     }
+    GameBoardController.receiveAttack(board, row, column);
+    switchActivePlayer();
     return 'Successful hit';
   };
 
