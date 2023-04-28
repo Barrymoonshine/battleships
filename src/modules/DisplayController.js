@@ -19,7 +19,13 @@ const DisplayController = (() => {
     }
   };
 
-  return { renderBoard, styleCells };
+  const clearContainer = (container) => {
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+  };
+
+  return { renderBoard, styleCells, clearContainer };
 })();
 
 export default DisplayController;
