@@ -1,4 +1,6 @@
 const DisplayController = (() => {
+  const messageContainer = document.getElementById('message-container');
+
   const renderBoard = (board, container, player) => {
     board.forEach((row, rowIndex) => {
       row.forEach((columnCell, columnIndex) => {
@@ -51,11 +53,17 @@ const DisplayController = (() => {
     }
   };
 
+  const displayWinMessage = (currentPlayer) => {
+    messageContainer.innerText = `
+    ${currentPlayer.name} is the winner! Play again?`;
+  };
+
   return {
     renderBoard,
     stylePlayerCells,
     styleAiCells,
     clearContainer,
+    displayWinMessage,
   };
 })();
 

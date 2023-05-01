@@ -36,34 +36,17 @@ const gameFlowController = (() => {
     for (let i = 0; i < aiPlayerCells.length; i += 1) {
       aiPlayerCells[i].addEventListener('click', (e) => {
         const coOrdinates = e.target.getAttribute('data-index-number');
-        playRound(coOrdinates);
+        playHumanRound(coOrdinates);
       });
     }
   };
 
-  const playRound = (coOrdinates) => {
-    // Get the co-ordinates for the attack and the active board
-    const row = +coOrdinates.charAt(0);
-    const column = +coOrdinates.charAt(1);
-    let activeBoard = getActiveBoard();
-
-    console.log(PlayerController.isPlayerOneActive());
-
-    // Place the attack based on the selected co-ordinates and active board
-    GameBoardController.receiveAttack(activeBoard, row, column);
-
-    // Clear the container
-    DisplayController.clearContainer(aiContainer);
-
-    // Render and style the updated board
-    DisplayController.renderBoard(activeBoard, aiContainer, 'ai-player');
-    DisplayController.styleAiCells(aiPlayerCells);
-
+  const playAiRound = () => {
     // Switch the active player
     PlayerController.switchActivePlayer();
-    console.log(PlayerController.isPlayerOneActive());
+
     // Update active board to players board
-    activeBoard = getActiveBoard();
+    const activeBoard = getActiveBoard();
 
     // Generate random Ai move
     PlayerController.generateAiMove(activeBoard);
@@ -75,10 +58,38 @@ const gameFlowController = (() => {
     DisplayController.renderBoard(playerBoard, playerContainer, 'human-player');
     DisplayController.stylePlayerCells(humanPlayerCells);
 
-    // Finally switch the active player and add back event listeners
-    PlayerController.switchActivePlayer();
-    console.log(PlayerController.isPlayerOneActive());
-    addEvtListeners();
+    // Check for end game
+    if (GameBoardController.areAllShipsSunk(activeBoard)) {
+      DisplayController.displayWinMessage(aiPlayer);
+    } else {
+      // Switch the active player and add back event listeners
+      PlayerController.switchActivePlayer();
+      addEvtListeners();
+    }
+  };
+
+  const playHumanRound = (coOrdinates) => {
+    // Get the co-ordinates for the attack and the active board
+    const row = +coOrdinates.charAt(0);
+    const column = +coOrdinates.charAt(1);
+    const activeBoard = getActiveBoard();
+
+    // Place the attack based on the selected co-ordinates and active board
+    GameBoardController.receiveAttack(activeBoard, row, column);
+
+    // Clear the container
+    DisplayController.clearContainer(aiContainer);
+
+    // Render and style the updated board
+    DisplayController.renderBoard(activeBoard, aiContainer, 'ai-player');
+    DisplayController.styleAiCells(aiPlayerCells);
+
+    // Check for end game
+    if (GameBoardController.areAllShipsSunk(activeBoard)) {
+      DisplayController.displayWinMessage(humanPlayer);
+    } else {
+      playAiRound();
+    }
   };
 
   const startGame = () => {
