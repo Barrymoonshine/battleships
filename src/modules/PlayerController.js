@@ -1,4 +1,5 @@
 import GameBoardController from './GameBoardController.js';
+import RandomServiceProvider from './RandomServiceProvider.js';
 
 const PlayerController = (() => {
   const PlayerFactory = (name) => ({ name });
@@ -13,12 +14,9 @@ const PlayerController = (() => {
     playerOneActive = true;
   };
 
-  const randomNumberGenerator = (min, max) =>
-    Math.floor(Math.random() * (max - min + 1) + min);
-
   const generateAiMove = (board) => {
-    const row = randomNumberGenerator(0, 9);
-    const column = randomNumberGenerator(0, 9);
+    const row = RandomServiceProvider.randomNumberGenerator(0, 9);
+    const column = RandomServiceProvider.randomNumberGenerator(0, 9);
 
     if (!GameBoardController.receiveAttack(board, row, column)) {
       // If a hit or miss already present, try again

@@ -1,5 +1,6 @@
 import ShipController from './ShipController.js';
 import PlayerController from './PlayerController.js';
+import RandomServiceProvider from './RandomServiceProvider.js';
 
 const GameBoardController = (() => {
   const rows = 10;
@@ -60,7 +61,6 @@ const GameBoardController = (() => {
   const receiveAttack = (board, row, column) => {
     if (board[row][column] === 'M' || board[row][column] === 'H') {
       // Miss or hit already present, do nothing and exit function
-
       return false;
     }
     if (board[row][column] === '') {
@@ -88,13 +88,8 @@ const GameBoardController = (() => {
     return totalHits === 17;
   };
 
-  const randomNumberGenerator = (min, max) =>
-    Math.floor(Math.random() * (max - min + 1) + min);
-
-  const randomBooleanGenerator = () => Math.random() < 0.5;
-
   const handleRow = (horizontal, ship) => {
-    let row = randomNumberGenerator(0, 9);
+    let row = RandomServiceProvider.randomNumberGenerator(0, 9);
     const minVal = 0;
     if (horizontal) {
       // If the ship is being place horizontally, any row value is potentially valid
@@ -111,7 +106,7 @@ const GameBoardController = (() => {
   };
 
   const handleColumn = (horizontal, ship) => {
-    let column = randomNumberGenerator(0, 9);
+    let column = RandomServiceProvider.randomNumberGenerator(0, 9);
     const minVal = 0;
     if (!horizontal) {
       // If the ship is being place vertically, any column value is potentially valid
@@ -128,7 +123,7 @@ const GameBoardController = (() => {
   };
 
   const handleShipPlacement = (ship, board) => {
-    const horizontal = randomBooleanGenerator();
+    const horizontal = RandomServiceProvider.randomBooleanGenerator();
     const row = handleRow(horizontal, ship);
     const column = handleColumn(horizontal, ship);
     if (!placeShip(board, horizontal, row, column, ship)) {
