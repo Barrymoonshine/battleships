@@ -32,13 +32,24 @@ const gameFlowController = (() => {
     return playerBoard;
   };
 
+  const addEvtListeners = () => {
+    for (let i = 0; i < aiPlayerCells.length; i += 1) {
+      aiPlayerCells[i].addEventListener('click', (e) => {
+        const coOrdinates = e.target.getAttribute('data-index-number');
+        playRound(coOrdinates);
+      });
+    }
+  };
+
   const playRound = (coOrdinates) => {
     // Get the co-ordinates for the attack and the active board
     const row = +coOrdinates.charAt(0);
     const column = +coOrdinates.charAt(1);
     let activeBoard = getActiveBoard();
 
-    // Place the attack based on the selected co-ordinates
+    console.log(PlayerController.isPlayerOneActive());
+
+    // Place the attack based on the selected co-ordinates and active board
     GameBoardController.receiveAttack(activeBoard, row, column);
 
     // Clear the container
@@ -50,11 +61,11 @@ const gameFlowController = (() => {
 
     // Switch the active player
     PlayerController.switchActivePlayer();
-
-    // Ai plays random move, update active board
+    console.log(PlayerController.isPlayerOneActive());
+    // Update active board to players board
     activeBoard = getActiveBoard();
 
-    // Generate random move
+    // Generate random Ai move
     PlayerController.generateAiMove(activeBoard);
 
     // Clear the container
@@ -64,17 +75,10 @@ const gameFlowController = (() => {
     DisplayController.renderBoard(playerBoard, playerContainer, 'human-player');
     DisplayController.stylePlayerCells(humanPlayerCells);
 
-    // Finally switch the active player
+    // Finally switch the active player and add back event listeners
     PlayerController.switchActivePlayer();
-  };
-
-  const addEvtListeners = () => {
-    for (let i = 0; i < aiPlayerCells.length; i += 1) {
-      aiPlayerCells[i].addEventListener('click', (e) => {
-        const coOrdinates = e.target.getAttribute('data-index-number');
-        playRound(coOrdinates);
-      });
-    }
+    console.log(PlayerController.isPlayerOneActive());
+    addEvtListeners();
   };
 
   const startGame = () => {

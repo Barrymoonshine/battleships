@@ -58,7 +58,6 @@ const GameBoardController = (() => {
   };
 
   const receiveAttack = (board, row, column) => {
-    console.log(board[row][column]);
     if (board[row][column] === 'M' || board[row][column] === 'H') {
       // Miss or hit already present, do nothing and exit function
 

@@ -19,16 +19,12 @@ const PlayerController = (() => {
   const generateAiMove = (board) => {
     const row = randomNumberGenerator(0, 9);
     const column = randomNumberGenerator(0, 9);
-    console.log(`row: ${row}`);
-    console.log(`column: ${column}`);
-    console.log(board);
 
     if (!GameBoardController.receiveAttack(board, row, column)) {
       // If a hit or miss already present, try again
       generateAiMove(board);
     }
     GameBoardController.receiveAttack(board, row, column);
-    switchActivePlayer();
     return 'Successful hit';
   };
 
