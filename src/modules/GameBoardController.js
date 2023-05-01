@@ -17,11 +17,71 @@ const GameBoardController = (() => {
     return board;
   };
 
+  const generateAjacentRow = (look, row) => {
+    const minVal = 0;
+    const maxVal = 9;
+    if (look === 'above') {
+      row += 1;
+      if (row > maxVal) {
+        return maxVal;
+      }
+      return row;
+    }
+    row -= 1;
+    if (row < minVal) {
+      return minVal;
+    }
+    return row;
+  };
+
+  const generateAdjacentCell = (look, cell) => {
+    const minVal = 0;
+    const maxVal = 9;
+    if (look === 'above' || look === 'right') {
+      cell += 1;
+      if (cell > maxVal) {
+        return maxVal;
+      }
+      return cell;
+    }
+    cell -= 1;
+    if (cell < minVal) {
+      return minVal;
+    }
+    return cell;
+  };
+
+  const areAdjacentCellsFree = (board, row, column) => {
+    const rowAbove = generateAdjacentCell('above', row);
+    const rowBelow = generateAdjacentCell('below', row);
+    const columnRight = generateAdjacentCell('right', column);
+    const columnLeft = generateAdjacentCell('left', column);
+    if (
+      board[rowAbove][column] === '' &&
+      board[rowBelow][column] === '' &&
+      board[row][columnRight] === '' &&
+      board[row][columnLeft] === '' &&
+      board[rowAbove][columnRight] === '' &&
+      board[rowAbove][columnLeft] === '' &&
+      board[rowBelow][columnRight] === '' &&
+      board[rowBelow][columnLeft] === ''
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   const areCellsFree = (board, horizontal, row, column, ship) => {
     if (horizontal) {
       for (let i = column; i < column + ship.length; i += 1) {
         if (board[row][i] === '') {
-          // Do nothing, continue with loop as cell is empty
+          // Cell is free, check that adjacent cells are also free
+          if (areAdjacentCellsFree(board, row, i)) {
+            // Continue with loop as both cells are free
+          } else {
+            // Exit loop as adjacent cells are occupied
+            return false;
+          }
         } else if (board[row][i] !== '') {
           // At least one cell is occupied so ship can't be placed
           return false;
@@ -31,7 +91,13 @@ const GameBoardController = (() => {
     if (!horizontal) {
       for (let i = row; i < row + ship.length; i += 1) {
         if (board[i][column] === '') {
-          // Do nothing, continue with loop as cell is empty
+          // Cell is free, check that adjacent cells are also free
+          if (areAdjacentCellsFree(board, i, column)) {
+            // Continue with loop as both cells are free
+          } else {
+            // Exit loop as adjacent cells are occupied
+            return false;
+          }
         } else if (board[i][column] !== '') {
           // At least one cell is occupied so ship can't be placed
           return false;
