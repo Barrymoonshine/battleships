@@ -73,22 +73,25 @@ const gameFlowController = (() => {
     const row = +coOrdinates.charAt(0);
     const column = +coOrdinates.charAt(1);
     const activeBoard = getActiveBoard();
-
-    // Place the attack based on the selected co-ordinates and active board
-    GameBoardController.receiveAttack(activeBoard, row, column);
-
-    // Clear the container
-    DisplayController.clearContainer(aiContainer);
-
-    // Render and style the updated board
-    DisplayController.renderBoard(activeBoard, aiContainer, 'ai-player');
-    DisplayController.styleAiCells(aiPlayerCells);
-
-    // Check for end game
-    if (GameBoardController.areAllShipsSunk(activeBoard)) {
-      DisplayController.displayWinMessage(humanPlayer);
+    if (!GameBoardController.receiveAttack(activeBoard, row, column)) {
+      // Do nothing as miss or hit already present in cell
     } else {
-      playAiRound();
+      // Place the attack based on the selected co-ordinates and active board
+      GameBoardController.receiveAttack(activeBoard, row, column);
+
+      // Clear the container
+      DisplayController.clearContainer(aiContainer);
+
+      // Render and style the updated board
+      DisplayController.renderBoard(activeBoard, aiContainer, 'ai-player');
+      DisplayController.styleAiCells(aiPlayerCells);
+
+      // Check for end game
+      if (GameBoardController.areAllShipsSunk(activeBoard)) {
+        DisplayController.displayWinMessage(humanPlayer);
+      } else {
+        playAiRound();
+      }
     }
   };
 
