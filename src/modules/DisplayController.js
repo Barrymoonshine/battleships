@@ -1,7 +1,24 @@
 const DisplayController = (() => {
   const messageContainer = document.getElementById('message-container');
 
-  const renderBoard = (board, container, player) => {
+  const renderSetUpBoard = (board, container, player) => {
+    board.forEach((row, rowIndex) => {
+      row.forEach((columnCell, columnIndex) => {
+        if (columnCell !== '') {
+          // If the cell contains a ship, add a second class and make element draggable
+          container.innerHTML += `
+          <div class="${player}-cells ${player}-${columnCell}" draggable="true" data-index-number="${rowIndex}${columnIndex}">${columnCell}</div>
+          `;
+        } else {
+          container.innerHTML += `
+            <div class="${player}-cells" data-index-number="${rowIndex}${columnIndex}">${columnCell}</div>
+            `;
+        }
+      });
+    });
+  };
+
+  const renderGameBoard = (board, container, player) => {
     board.forEach((row, rowIndex) => {
       row.forEach((columnCell, columnIndex) => {
         container.innerHTML += `
@@ -58,12 +75,27 @@ const DisplayController = (() => {
     ${currentPlayer.name} is the winner! Play again?`;
   };
 
+  const dragStart = (e) => {
+    console.log('drag starts...');
+  };
+
+  const addDragDropListeners = () => {
+    const playerCarrierCells = document.getElementsByClassName(
+      'human-player-carrier'
+    );
+    for (let i = 0; i < playerCarrierCells.length; i += 1) {
+      playerCarrierCells[i].addEventListener('dragstart', dragStart);
+    }
+  };
+
   return {
-    renderBoard,
+    renderSetUpBoard,
+    renderGameBoard,
     stylePlayerCells,
     styleAiCells,
     clearContainer,
     displayWinMessage,
+    addDragDropListeners,
   };
 })();
 

@@ -48,3 +48,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
 }
+
+.hide {
+  display: none;
+}

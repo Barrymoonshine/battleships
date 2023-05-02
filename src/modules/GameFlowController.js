@@ -55,7 +55,11 @@ const gameFlowController = (() => {
     DisplayController.clearContainer(playerContainer);
 
     // Render and style the updated board
-    DisplayController.renderBoard(playerBoard, playerContainer, 'human-player');
+    DisplayController.renderGameBoard(
+      playerBoard,
+      playerContainer,
+      'human-player'
+    );
     DisplayController.stylePlayerCells(humanPlayerCells);
 
     // Check for end game
@@ -83,7 +87,7 @@ const gameFlowController = (() => {
       DisplayController.clearContainer(aiContainer);
 
       // Render and style the updated board
-      DisplayController.renderBoard(activeBoard, aiContainer, 'ai-player');
+      DisplayController.renderGameBoard(activeBoard, aiContainer, 'ai-player');
       DisplayController.styleAiCells(aiPlayerCells);
 
       // Check for end game
@@ -97,19 +101,27 @@ const gameFlowController = (() => {
 
   const startGame = () => {
     // Randomly place ships
-    GameBoardController.placeShipsRandomly(playerBoard, playerShips);
     GameBoardController.placeShipsRandomly(aiBoard, aiShips);
+    GameBoardController.placeShipsRandomly(playerBoard, playerShips);
 
-    // Display game boards
-    DisplayController.renderBoard(playerBoard, playerContainer, 'human-player');
-    DisplayController.renderBoard(aiBoard, aiContainer, 'ai-player');
+    // Display set-up board for player with drag and drop
+    DisplayController.renderSetUpBoard(
+      playerBoard,
+      playerContainer,
+      'human-player'
+    );
+    // Render game board for ai player as there is no set up phase
+    DisplayController.renderGameBoard(aiBoard, aiContainer, 'ai-player');
 
     // Style cells
     DisplayController.stylePlayerCells(humanPlayerCells);
     DisplayController.styleAiCells(aiPlayerCells);
 
+    // Add drag and drop listeners
+    DisplayController.addDragDropListeners();
+
     // Add event listeners
-    addEvtListeners();
+    // addEvtListeners(); - come back to later
   };
 
   const clearContainers = () => {

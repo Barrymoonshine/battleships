@@ -17,23 +17,6 @@ const GameBoardController = (() => {
     return board;
   };
 
-  const generateAjacentRow = (look, row) => {
-    const minVal = 0;
-    const maxVal = 9;
-    if (look === 'above') {
-      row += 1;
-      if (row > maxVal) {
-        return maxVal;
-      }
-      return row;
-    }
-    row -= 1;
-    if (row < minVal) {
-      return minVal;
-    }
-    return row;
-  };
-
   const generateAdjacentCell = (look, cell) => {
     const minVal = 0;
     const maxVal = 9;
