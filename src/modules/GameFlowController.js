@@ -16,8 +16,8 @@ const gameFlowController = (() => {
   const aiPlayer = PlayerController.PlayerFactory('Ai');
 
   // Generate boards
-  let playerBoard = GameBoardController.createBoard();
-  let aiBoard = GameBoardController.createBoard();
+  const playerBoard = GameBoardController.createBoard();
+  const aiBoard = GameBoardController.createBoard();
 
   // Generate ships
   ShipController.createPlayerShips();
@@ -100,28 +100,31 @@ const gameFlowController = (() => {
   };
 
   const startGame = () => {
-    // Randomly place ships
+    // Randomly place ships for Ai player
     GameBoardController.placeShipsRandomly(aiBoard, aiShips);
-    GameBoardController.placeShipsRandomly(playerBoard, playerShips);
 
-    // Display set-up board for player with drag and drop
-    DisplayController.renderSetUpBoard(
+    // Render blank game board for human player to manually add their ships to
+    DisplayController.renderGameBoard(
       playerBoard,
       playerContainer,
       'human-player'
     );
-    // Render game board for ai player as there is no set up phase
+
+    // Create ships for player to add to the board
+    DisplayController.createShipButtons();
+
+    // Add event listeners to the ship buttons
+    DisplayController.addClickShipButtons();
+
+    // Render populated game board for ai player as there is no set up phase
     DisplayController.renderGameBoard(aiBoard, aiContainer, 'ai-player');
 
     // Style cells
     DisplayController.stylePlayerCells(humanPlayerCells);
     DisplayController.styleAiCells(aiPlayerCells);
 
-    // Add drag and drop listeners
-    DisplayController.addDragDropListeners();
-
     // Add event listeners
-    // addEvtListeners(); - come back to later
+    // addEvtListeners(); - come back to later, added after all the ships have been placed
   };
 
   const clearContainers = () => {
@@ -140,7 +143,7 @@ const gameFlowController = (() => {
     startGame();
   });
 
-  return { startGame };
+  return { startGame, playerBoard };
 })();
 
 export default gameFlowController;

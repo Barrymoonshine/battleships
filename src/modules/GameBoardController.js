@@ -1,5 +1,4 @@
 import ShipController from './ShipController.js';
-import PlayerController from './PlayerController.js';
 import RandomServiceProvider from './RandomServiceProvider.js';
 
 const GameBoardController = (() => {

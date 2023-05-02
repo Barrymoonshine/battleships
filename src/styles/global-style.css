@@ -49,6 +49,6 @@ body {
   overflow: hidden;
 }
 
-.hide {
-  display: none;
+#hide {
+  background-color: white;
 }
