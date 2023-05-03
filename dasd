@@ -1,0 +1,27 @@
+[33m2dcef95[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Ships being added to player board using mouseover
+[33m85a015a[m First stage of drag and drop functionality created with adddDragDropListeners function
+[33m333b743[m Updated cell check in GameBoardController to check that adjacent cells are also free
+[33m903de93[m Created RandomServiceProvider module
+[33m249846f[m Check introduced to ensure that AI round is only played if the player has selected an available cell
+[33mb919eb2[m Check for end game added to each round in GameFlowController
+[33ma00028d[m Resolved bug resulting in boards being incorrectly switched each round
+[33mb4fd45a[m Ai move now being placed after player move in playRound function
+[33m857bafa[m playRound function created, one human player move can now be placed
+[33m88fd987[m Resolved bug with placing ships randomly
+[33mf28d9c8[m Randomise button created
+[33mccdddbe[m Basic styling applied to game boards
+[33m9378fe0[m Created startGame function
+[33mc4bd974[m Ships randomly placed onto Player and AI boards
+[33mcb0ddc7[m GenerateAiMove test and function created and passed
+[33m46102e8[m Added and passed test to check that switch active player is working
+[33m5cc34a3[m Created PlayerController module and passed first test
+[33ma150db8[m Updated areAllSinksSunk function and test coverage
+[33m953696a[m Receiveattack tests and function created and passed
+[33m7551f9d[m Refactored code to store ships in an array
+[33mf6f3efd[m placeShip function update to check if cells are free and place ships vertically and horizontally
+[33mbf40be8[m GameBoardController module created and createBoard and placeShip functions created and tested
+[33mb6acf7e[m ShipController module and tests created and passed
+[33m2782f13[m Jest and Babel installed and configured with Webpack
+[33mde7bb55[m Created ShipController module
+[33m4edc10a[m Jest and Babel installed and configured with example test
+[33m1689fbd[m Basic file structure created with Webpack, ESLint and Prettierr installed and configured

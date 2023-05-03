@@ -1,4 +1,4 @@
 import './styles/global-style.css';
-import gameFlowController from './modules/GameFlowController';
+import GameFlowController from './modules/GameFlowController';
 
-gameFlowController.startGame();
+GameFlowController.startGame();

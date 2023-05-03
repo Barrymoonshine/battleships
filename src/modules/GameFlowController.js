@@ -3,7 +3,7 @@ import ShipController from './ShipController.js';
 import PlayerController from './PlayerController.js';
 import DisplayController from './DisplayController.js';
 
-const gameFlowController = (() => {
+const GameFlowController = (() => {
   const playerContainer = document.getElementById('board-container-one');
   const aiContainer = document.getElementById('board-container-two');
   const randomiseShipsBtn = document.getElementById('randomise-ships-btn');
@@ -16,8 +16,8 @@ const gameFlowController = (() => {
   const aiPlayer = PlayerController.PlayerFactory('Ai');
 
   // Generate boards
-  const playerBoard = GameBoardController.createBoard();
-  const aiBoard = GameBoardController.createBoard();
+  let playerBoard = GameBoardController.createBoard();
+  let aiBoard = GameBoardController.createBoard();
 
   // Generate ships
   ShipController.createPlayerShips();
@@ -100,31 +100,24 @@ const gameFlowController = (() => {
   };
 
   const startGame = () => {
-    // Randomly place ships for Ai player
+    // Randomly place ships for Ai and human player
     GameBoardController.placeShipsRandomly(aiBoard, aiShips);
+    GameBoardController.placeShipsRandomly(playerBoard, playerShips);
 
-    // Render blank game board for human player to manually add their ships to
+    // Render populated game boards
+    DisplayController.renderGameBoard(aiBoard, aiContainer, 'ai-player');
     DisplayController.renderGameBoard(
       playerBoard,
       playerContainer,
       'human-player'
     );
 
-    // Create ships for player to add to the board
-    DisplayController.createShipButtons();
-
-    // Add event listeners to the ship buttons
-    DisplayController.addClickShipButtons();
-
-    // Render populated game board for ai player as there is no set up phase
-    DisplayController.renderGameBoard(aiBoard, aiContainer, 'ai-player');
-
     // Style cells
     DisplayController.stylePlayerCells(humanPlayerCells);
     DisplayController.styleAiCells(aiPlayerCells);
 
     // Add event listeners
-    // addEvtListeners(); - come back to later, added after all the ships have been placed
+    addEvtListeners();
   };
 
   const clearContainers = () => {
@@ -143,7 +136,7 @@ const gameFlowController = (() => {
     startGame();
   });
 
-  return { startGame, playerBoard };
+  return { startGame };
 })();
 
-export default gameFlowController;
+export default GameFlowController;
