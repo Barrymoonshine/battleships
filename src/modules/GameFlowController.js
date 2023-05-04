@@ -2,6 +2,7 @@ import GameBoardController from './GameBoardController.js';
 import ShipController from './ShipController.js';
 import PlayerController from './PlayerController.js';
 import DisplayController from './DisplayController.js';
+import DragDropController from './DragDropController.js';
 
 const GameFlowController = (() => {
   const playerContainer = document.getElementById('board-container-one');
@@ -10,6 +11,9 @@ const GameFlowController = (() => {
   const humanPlayerCells =
     document.getElementsByClassName('human-player-cells');
   const aiPlayerCells = document.getElementsByClassName('ai-player-cells');
+  const shipPlacementContainer = document.getElementsByClassName(
+    'ship-placement-container'
+  )[0];
 
   // Generate players
   const humanPlayer = PlayerController.PlayerFactory('Player one');
@@ -102,9 +106,6 @@ const GameFlowController = (() => {
   const startGame = () => {
     // Randomly place ships for Ai and human player
     GameBoardController.placeShipsRandomly(aiBoard, aiShips);
-    GameBoardController.placeShipsRandomly(playerBoard, playerShips);
-
-    console.log('aiBoard', aiBoard);
 
     // Render populated game boards
     DisplayController.renderGameBoard(aiBoard, aiContainer, 'ai-player');
@@ -136,6 +137,10 @@ const GameFlowController = (() => {
     clearContainers();
     clearGameBoardArrays();
     startGame();
+  });
+
+  shipPlacementContainer.addEventListener('mousedown', (e) => {
+    DragDropController.handleDragStart(e);
   });
 
   return { startGame };
