@@ -170,13 +170,13 @@ const GameBoardController = (() => {
     return column;
   };
 
-  const handleShipPlacement = (ship, board) => {
+  const handleRandomShipPlacement = (ship, board) => {
     const horizontal = RandomServiceProvider.randomBooleanGenerator();
     const row = handleRow(horizontal, ship);
     const column = handleColumn(horizontal, ship);
     if (!placeShip(board, horizontal, row, column, ship)) {
       // If space not free, try again with new coordinates
-      handleShipPlacement(ship, board);
+      handleRandomShipPlacement(ship, board);
     } else {
       // Else space free
       placeShip(board, horizontal, row, column, ship);
@@ -185,7 +185,7 @@ const GameBoardController = (() => {
 
   const placeShipsRandomly = (board, allShips) => {
     allShips.forEach((ship) => {
-      handleShipPlacement(ship, board);
+      handleRandomShipPlacement(ship, board);
     });
   };
 

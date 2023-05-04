@@ -104,6 +104,8 @@ const GameFlowController = (() => {
     GameBoardController.placeShipsRandomly(aiBoard, aiShips);
     GameBoardController.placeShipsRandomly(playerBoard, playerShips);
 
+    console.log('aiBoard', aiBoard);
+
     // Render populated game boards
     DisplayController.renderGameBoard(aiBoard, aiContainer, 'ai-player');
     DisplayController.renderGameBoard(

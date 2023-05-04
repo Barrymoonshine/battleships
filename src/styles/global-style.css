@@ -9,6 +9,10 @@ body {
   margin: 0px;
 }
 
+ul {
+  list-style: none;
+}
+
 .boards-container {
   display: flex;
 }
@@ -22,7 +26,7 @@ body {
 }
 
 #board-container-two {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
   border: 1px solid black;
@@ -33,7 +37,7 @@ body {
   border: 1px solid black;
   width: 40px;
   height: 40px;
-  /* Hide the text. */
+  /* Hide text */
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -43,12 +47,55 @@ body {
   border: 1px solid black;
   width: 40px;
   height: 40px;
-  /* Hide the text. */
+  /* Hide text */
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
 }
 
-#hide {
-  background-color: white;
+.player-container {
+  display: flex;
+}
+
+.ship-placement-container {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.carrier {
+  display: grid;
+  grid-template-columns: repeat(5, 30px);
+  grid-template-rows: 30px;
+  width: 150px;
+}
+
+.battleship {
+  display: grid;
+  grid-template-columns: repeat(4, 30px);
+  grid-template-rows: 30px;
+  width: 120px;
+}
+
+.submarine,
+.destroyer {
+  display: grid;
+  grid-template-columns: 30px 30px 30px;
+  grid-template-rows: 30px;
+  width: 90px;
+}
+
+.patrol-boat {
+  display: grid;
+  grid-template-columns: 30px 30px;
+  grid-template-rows: 30px;
+  width: 60px;
+}
+
+.ship-cell {
+  height: 30px;
+  width: 30px;
+  border: 1px solid black;
+  background-color: #f0db4f;
 }

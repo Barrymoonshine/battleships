@@ -10,8 +10,75 @@
     <div class="header">Battleships</div>
     <div id="message-container"></div>
     <div class="boards-container">
-      <div id="board-container-one"></div>
-      <div id="ship-buttons-container"></div>
+      <div class="player-container">
+        <div class="ship-placement-container">
+          Drag and drop
+          <div id="carrier-container">
+            <div
+              class="carrier"
+              id="carrier"
+              data-index-number="5"
+              draggable="true"
+            >
+              <div class="ship-cell"></div>
+              <div class="ship-cell"></div>
+              <div class="ship-cell"></div>
+              <div class="ship-cell"></div>
+              <div class="ship-cell"></div>
+            </div>
+          </div>
+          <div id="battleship-container">
+            <div
+              class="battleship"
+              id="battleship"
+              data-index-number="4"
+              draggable="true"
+            >
+              <div class="ship-cell"></div>
+              <div class="ship-cell"></div>
+              <div class="ship-cell"></div>
+              <div class="ship-cell"></div>
+            </div>
+          </div>
+          <div id="destroyer-container">
+            <div
+              class="destroyer"
+              id="destroyer"
+              data-index-number="3"
+              draggable="true"
+            >
+              <div class="ship-cell"></div>
+              <div class="ship-cell"></div>
+              <div class="ship-cell"></div>
+            </div>
+          </div>
+          <div id="submarine-container">
+            <div
+              class="submarine"
+              id="submarine"
+              data-index-number="3"
+              draggable="true"
+            >
+              <div class="ship-cell"></div>
+              <div class="ship-cell"></div>
+              <div class="ship-cell"></div>
+            </div>
+          </div>
+          <div id="patrol-boat-container">
+            <div
+              class="patrol-boat"
+              id="patrol-boat"
+              data-index-number="2"
+              draggable="true"
+            >
+              <div class="ship-cell"></div>
+              <div class="ship-cell"></div>
+            </div>
+          </div>
+        </div>
+        <div id="board-container-one"></div>
+      </div>
+
       <div id="board-container-two"></div>
     </div>
     <div class="button-container">
