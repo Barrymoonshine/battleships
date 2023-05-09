@@ -1,35 +1,12 @@
 const DragDropController = (() => {
-  const rows = 10;
-  const columns = 10;
-
   // Initialise the shipLength variable
   let shipLength = 0;
 
   // Initialise the target ships name
   let targetShip = '';
 
-  const generateTarget = (targetId) => {
-    const maxRow = 9;
-    if (targetId.charAt(0) === '0') {
-      // First row
-      let secondDigit = Number(targetId.charAt(1));
-      secondDigit += 1;
-      return `${targetId.charAt(0)}${secondDigit}`;
-    }
-    if (targetId.charAt(1) === '9') {
-      // Last column, don't increment
-      return targetId;
-    }
-    // Else, increment by size of ship -1 (test ship is size 2 so increment by 1)
-    if (Number(targetId) + 1 > maxRow) {
-      return maxRow;
-    }
-    return Number(targetId) + 1;
-  };
-
-  const checkIfCellsFree = (target, shipLength) => {
-    // Expand to be flexible for any number of cells
-    // And look for cells already occupied, plus cells within 1 square radius
+  const checkIfCellsFree = (target) => {
+    // Look for cells already occupied, plus cells within 1 square radius
     // Update for vertical placement later
 
     if (target.id.charAt(1) === '9') {
@@ -56,22 +33,85 @@ const DragDropController = (() => {
     });
   };
 
+  const getCell = (targetId, i) => {
+    const maxRow = 9;
+    let secondDigit = Number(targetId.charAt(1));
+    secondDigit += i;
+    let targetCell = '';
+    if (secondDigit > maxRow) {
+      targetCell = document.getElementById(`${targetId.charAt(0)}${maxRow}`);
+    } else {
+      targetCell = document.getElementById(
+        `${targetId.charAt(0)}${secondDigit}`
+      );
+      return targetCell;
+    }
+  };
+
+  const getFirstRowCell = (targetId, i) => {
+    const maxRow = 9;
+    let secondDigit = Number(targetId.charAt(1));
+    secondDigit += i;
+    let targetCell = '';
+    if (secondDigit > maxRow) {
+      targetCell = document.getElementById(`${targetId.charAt(0)}${maxRow}`);
+    } else {
+      targetCell = document.getElementById(
+        `${targetId.charAt(0)}${secondDigit}`
+      );
+      return targetCell;
+    }
+  };
+
   const removeDragOver = (target) => {
     for (let i = 0; i < shipLength; i += 1) {
-      const targetCell = document.getElementById(Number(target.id) + i);
+      let targetCell = 0;
+      if (target.id.charAt(0) === '0') {
+        targetCell = getFirstRowCell(target.id, i);
+      } else {
+        targetCell = getCell(target.id, i);
+      }
       targetCell.classList.remove('drag-over');
     }
   };
 
   const removeInvalidDrop = (target) => {
     for (let i = 0; i < shipLength; i += 1) {
-      const targetCell = document.getElementById(Number(target.id) + i);
+      let targetCell = 0;
+      if (target.id.charAt(0) === '0') {
+        targetCell = getFirstRowCell(target.id, i);
+      } else {
+        targetCell = getCell(target.id, i);
+      }
       targetCell.classList.remove('invalid-drop');
     }
   };
 
+  const addInvalidDropOver = (target) => {
+    for (let i = 0; i < shipLength; i += 1) {
+      let targetCell = 0;
+      if (target.id.charAt(0) === '0') {
+        targetCell = getFirstRowCell(target.id, i);
+      } else {
+        targetCell = getCell(target.id, i);
+      }
+      targetCell.classList.add('invalid-drop');
+    }
+  };
+
+  const addDragOver = (target) => {
+    for (let i = 0; i < shipLength; i += 1) {
+      let targetCell = 0;
+      if (target.id.charAt(0) === '0') {
+        targetCell = getFirstRowCell(target.id, i);
+      } else {
+        targetCell = getCell(target.id, i);
+      }
+      targetCell.classList.add('drag-over');
+    }
+  };
+
   const drop = (e) => {
-    const rightTarget = document.getElementById(generateTarget(e.target.id));
     if (!checkIfCellsFree(e.target, shipLength)) {
       // Remove invalid drop class, but don't drop element
       removeInvalidDrop(e.target);
@@ -81,7 +121,7 @@ const DragDropController = (() => {
 
       // Loop to style all target cells
       for (let i = 0; i < shipLength; i += 1) {
-        const targetCell = document.getElementById(Number(e.target.id) + i);
+        const targetCell = getCell(e.target.id, i);
         targetCell.style.backgroundColor = '#f0db4f';
         targetCell.style.border = '1px solid black';
         targetCell.innerText = 'patrolBoat';
@@ -105,20 +145,6 @@ const DragDropController = (() => {
       removeDragOver(e.target);
     } else {
       removeDragOver(e.target);
-    }
-  };
-
-  const addInvalidDropOver = (target) => {
-    for (let i = 0; i < shipLength; i += 1) {
-      const targetCell = document.getElementById(Number(target.id) + i);
-      targetCell.classList.add('invalid-drop');
-    }
-  };
-
-  const addDragOver = (target) => {
-    for (let i = 0; i < shipLength; i += 1) {
-      const targetCell = document.getElementById(Number(target.id) + i);
-      targetCell.classList.add('drag-over');
     }
   };
 
@@ -155,8 +181,7 @@ const DragDropController = (() => {
 
   // handle the dragstart
   const dragStart = (e) => {
-    console.log('drag start called');
-    // Provide shipLength and targetShip to module scope
+    // Provide shipLength to module scope
     shipLength = e.target.getAttribute('data-index-number');
     addDDListeners();
   };
@@ -164,8 +189,7 @@ const DragDropController = (() => {
   // attach the dragstart event handler
 
   const handleDragStart = (e) => {
-    // D&D needs access to the players board
-    console.log('handleDragStart called');
+    // Provide targetShip to module scope
     targetShip = e.target.getAttribute('data-ship-name');
     const domTargetShip = document.querySelector(`.${targetShip}`);
     domTargetShip.addEventListener('dragstart', dragStart);
