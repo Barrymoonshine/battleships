@@ -34,79 +34,43 @@ const DragDropController = (() => {
   };
 
   const getCell = (targetId, i) => {
-    const maxRow = 9;
-    let secondDigit = Number(targetId.charAt(1));
-    secondDigit += i;
+    const maxColumn = 9;
+    const row = Number(targetId.charAt(0));
+    let column = Number(targetId.charAt(1));
+    column += i;
     let targetCell = '';
-    if (secondDigit > maxRow) {
-      targetCell = document.getElementById(`${targetId.charAt(0)}${maxRow}`);
+    if (column > maxColumn) {
+      targetCell = document.getElementById(`${row}${maxColumn}`);
     } else {
-      targetCell = document.getElementById(
-        `${targetId.charAt(0)}${secondDigit}`
-      );
-      return targetCell;
+      targetCell = document.getElementById(`${row}${column}`);
     }
-  };
-
-  const getFirstRowCell = (targetId, i) => {
-    const maxRow = 9;
-    let secondDigit = Number(targetId.charAt(1));
-    secondDigit += i;
-    let targetCell = '';
-    if (secondDigit > maxRow) {
-      targetCell = document.getElementById(`${targetId.charAt(0)}${maxRow}`);
-    } else {
-      targetCell = document.getElementById(
-        `${targetId.charAt(0)}${secondDigit}`
-      );
-      return targetCell;
-    }
+    return targetCell;
   };
 
   const removeDragOver = (target) => {
     for (let i = 0; i < shipLength; i += 1) {
-      let targetCell = 0;
-      if (target.id.charAt(0) === '0') {
-        targetCell = getFirstRowCell(target.id, i);
-      } else {
-        targetCell = getCell(target.id, i);
-      }
+      const targetCell = getCell(target.id, i);
       targetCell.classList.remove('drag-over');
     }
   };
 
   const removeInvalidDrop = (target) => {
     for (let i = 0; i < shipLength; i += 1) {
-      let targetCell = 0;
-      if (target.id.charAt(0) === '0') {
-        targetCell = getFirstRowCell(target.id, i);
-      } else {
-        targetCell = getCell(target.id, i);
-      }
+      const targetCell = getCell(target.id, i);
       targetCell.classList.remove('invalid-drop');
     }
   };
 
   const addInvalidDropOver = (target) => {
     for (let i = 0; i < shipLength; i += 1) {
-      let targetCell = 0;
-      if (target.id.charAt(0) === '0') {
-        targetCell = getFirstRowCell(target.id, i);
-      } else {
-        targetCell = getCell(target.id, i);
-      }
+      const targetCell = getCell(target.id, i);
       targetCell.classList.add('invalid-drop');
     }
   };
 
   const addDragOver = (target) => {
     for (let i = 0; i < shipLength; i += 1) {
-      let targetCell = 0;
-      if (target.id.charAt(0) === '0') {
-        targetCell = getFirstRowCell(target.id, i);
-      } else {
-        targetCell = getCell(target.id, i);
-      }
+      const targetCell = getCell(target.id, i);
       targetCell.classList.add('drag-over');
     }
   };
