@@ -95,6 +95,15 @@ const DragDropController = (() => {
     }
   };
 
+  const checkForStartGame = () => {
+    const currentPlayerBoard = DisplayController.getCurrentBoard();
+    if (GameBoardController.areAllShipsPlaced(currentPlayerBoard)) {
+      DisplayController.displayStartButton();
+    } else {
+      // Do nothing, as not all ships have been placed
+    }
+  };
+
   const drop = (e) => {
     if (!areCellsFree(e.target, shipLength)) {
       // Remove invalid drop class, but don't drop element
@@ -119,6 +128,9 @@ const DragDropController = (() => {
 
       // Remove listeners so ship can't be placed again
       removeDDListeners();
+
+      // Check for all ships
+      checkForStartGame();
     }
   };
 

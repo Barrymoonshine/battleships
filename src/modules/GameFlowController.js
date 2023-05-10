@@ -130,41 +130,18 @@ const GameFlowController = (() => {
     addEvtListeners();
   };
 
-  const clearPlayerContainer = () => {
+  const handleRandomiseBtn = () => {
     DisplayController.clearContainer(playerContainer);
-  };
-
-  const clearPlayerBoard = () => {
     playerBoard = GameBoardController.createBoard();
-  };
-
-  const placePlayerShipsRandomly = () => {
     GameBoardController.placeShipsRandomly(playerBoard, playerShips);
-  };
-
-  const stylePlayerCells = () => {
-    DisplayController.stylePlayerCells(humanPlayerCells);
-  };
-
-  const renderPlayerBoard = () => {
     DisplayController.renderGameBoard(
       playerBoard,
       playerContainer,
       'human-player'
     );
-  };
-
-  const hideShips = () => {
+    DisplayController.stylePlayerCells(humanPlayerCells);
     DisplayController.hideShips();
-  };
-
-  const handleRandomiseBtn = () => {
-    clearPlayerContainer();
-    clearPlayerBoard();
-    placePlayerShipsRandomly();
-    renderPlayerBoard();
-    stylePlayerCells();
-    hideShips();
+    DisplayController.displayStartButton();
   };
 
   randomiseShipsBtn.addEventListener('click', () => {

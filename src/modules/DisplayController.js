@@ -15,6 +15,9 @@ const DisplayController = (() => {
   )[0];
   const dragDropContainer = document.getElementById('drag-drop-container');
   const aiBoardContainer = document.getElementById('board-container-two');
+  const startButtonContainer = document.getElementsByClassName(
+    'start-button-container'
+  )[0];
 
   const renderGameBoard = (board, container, player) => {
     if (player === 'human-player') {
@@ -151,6 +154,10 @@ const DisplayController = (() => {
     aiBoardContainer.style.display = 'grid';
   };
 
+  const displayStartButton = () => {
+    startButtonContainer.style.display = 'flex';
+  };
+
   return {
     renderGameBoard,
     stylePlayerCells,
@@ -162,6 +169,7 @@ const DisplayController = (() => {
     hideShips,
     hideDragDropContainer,
     displayAiBoard,
+    displayStartButton,
   };
 })();
 

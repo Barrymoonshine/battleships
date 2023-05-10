@@ -189,6 +189,19 @@ const GameBoardController = (() => {
     });
   };
 
+  const areAllShipsPlaced = (board) => {
+    // Ships occupy a total of 17 cells
+    let totalCellsOccupied = 0;
+    board.forEach((row) => {
+      row.forEach((columnCell) => {
+        if (columnCell !== '') {
+          totalCellsOccupied += 1;
+        }
+      });
+    });
+    return totalCellsOccupied === 17;
+  };
+
   return {
     createBoard,
     placeShip,
@@ -196,6 +209,7 @@ const GameBoardController = (() => {
     areAllShipsSunk,
     placeShipsRandomly,
     areCellsFree,
+    areAllShipsPlaced,
   };
 })();
 
