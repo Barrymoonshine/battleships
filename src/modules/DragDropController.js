@@ -45,13 +45,22 @@ const DragDropController = (() => {
   };
 
   const getCell = (targetId, i) => {
-    const maxColumn = 9;
-    const row = Number(targetId.charAt(0));
+    const maxValue = 9;
+    let row = Number(targetId.charAt(0));
     let column = Number(targetId.charAt(1));
-    column += i;
     let targetCell = '';
-    if (column > maxColumn) {
-      targetCell = document.getElementById(`${row}${maxColumn}`);
+    if (horizontal) {
+      column += i;
+      if (column > maxValue) {
+        targetCell = document.getElementById(`${row}${maxValue}`);
+      } else {
+        targetCell = document.getElementById(`${row}${column}`);
+      }
+      return targetCell;
+    }
+    row += i;
+    if (row > maxValue) {
+      targetCell = document.getElementById(`${maxValue}${column}`);
     } else {
       targetCell = document.getElementById(`${row}${column}`);
     }
@@ -168,14 +177,12 @@ const DragDropController = (() => {
   const dragStart = (e) => {
     // Provide shipLength to module scope and activate drag live
     shipLength = e.target.getAttribute('data-index-number');
-
     addDDListeners();
   };
 
   const handleDragStart = (e) => {
     // Provide targetShip to module scope
     targetShip = e.target.getAttribute('data-ship-name');
-
     // Add dragStart event listener
     const domTargetShip = document.querySelector(`.${targetShip}`);
     domTargetShip.addEventListener('dragstart', dragStart);
