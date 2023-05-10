@@ -158,6 +158,10 @@ const DisplayController = (() => {
     startButtonContainer.style.display = 'flex';
   };
 
+  const hideStartButton = () => {
+    startButtonContainer.style.display = 'none';
+  };
+
   return {
     renderGameBoard,
     stylePlayerCells,
@@ -170,6 +174,7 @@ const DisplayController = (() => {
     hideDragDropContainer,
     displayAiBoard,
     displayStartButton,
+    hideStartButton,
   };
 })();
 

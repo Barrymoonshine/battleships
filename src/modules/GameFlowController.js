@@ -122,12 +122,16 @@ const GameFlowController = (() => {
   };
 
   const startGame = () => {
+    // Update the player's board
+    playerBoard = DisplayController.getCurrentBoard();
     // hide drag and drop container
     DisplayController.hideDragDropContainer();
     // Show AI board
     DisplayController.displayAiBoard();
     // Add event listeners
     addEvtListeners();
+    // Hide start button
+    DisplayController.hideStartButton();
   };
 
   const handleRandomiseBtn = () => {
