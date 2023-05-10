@@ -117,7 +117,7 @@ const DragDropController = (() => {
         const targetCell = getCell(e.target.id, i);
         targetCell.style.backgroundColor = '#f0db4f';
         targetCell.style.border = '1px solid black';
-        targetCell.innerText = 'patrolBoat';
+        targetCell.innerText = `${targetShip}`;
       }
 
       // Remove ship from D&D list
