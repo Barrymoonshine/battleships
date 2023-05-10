@@ -2,11 +2,16 @@ import GameBoardController from './GameBoardController.js';
 import DisplayController from './DisplayController.js';
 
 const DragDropController = (() => {
-  // Initialise the shipLength variable
+  // Initialise the shipLength variable for use in module
   let shipLength = 0;
 
-  // Initialise the target ships name
+  // Initialise the target ships name for use in module
   let targetShip = '';
+
+  // Initialise the horizontal name for use in module
+  let horizontal = true;
+
+  const rotateShipsButton = document.getElementById('rotate-ships-button');
 
   const areCellsFree = (target) => {
     const cell = target.id;
@@ -18,7 +23,7 @@ const DragDropController = (() => {
     if (
       !GameBoardController.areCellsFree(
         currentPlayerBoard,
-        true,
+        horizontal,
         row,
         column,
         Number(shipLength)
@@ -149,21 +154,36 @@ const DragDropController = (() => {
     });
   };
 
-  // handle the dragstart
-  const dragStart = (e) => {
-    // Provide shipLength to module scope
-    shipLength = e.target.getAttribute('data-index-number');
-    addDDListeners();
+  const toggleHorizontal = () => {
+    horizontal = !horizontal;
   };
 
-  // attach the dragstart event handler
+  const rotateShips = () => {
+    console.log('Rotate has been pressed!');
+    DisplayController.toggleRotateShips(horizontal);
+    toggleHorizontal();
+  };
+
+  // Add event listeners
+  const dragStart = (e) => {
+    // Provide shipLength to module scope and activate drag live
+    shipLength = e.target.getAttribute('data-index-number');
+
+    addDDListeners();
+  };
 
   const handleDragStart = (e) => {
     // Provide targetShip to module scope
     targetShip = e.target.getAttribute('data-ship-name');
+
+    // Add dragStart event listener
     const domTargetShip = document.querySelector(`.${targetShip}`);
     domTargetShip.addEventListener('dragstart', dragStart);
   };
+
+  rotateShipsButton.addEventListener('click', () => {
+    rotateShips();
+  });
 
   return { handleDragStart };
 })();

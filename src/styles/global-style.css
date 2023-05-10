@@ -57,6 +57,11 @@ ul {
   display: flex;
 }
 
+#drag-drop-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .ship-placement-container {
   margin: 10px;
   display: flex;

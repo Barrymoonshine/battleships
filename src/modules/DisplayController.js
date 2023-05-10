@@ -2,10 +2,14 @@ import ShipController from './ShipController.js';
 
 const DisplayController = (() => {
   const messageContainer = document.getElementById('message-container');
-  const shipBtnsContainer = document.getElementById('ship-buttons-container');
-  const humanPlayerCells =
-    document.getElementsByClassName('human-player-cells');
-  const playerContainer = document.getElementById('board-container-one');
+  const shipPlacementContainer = document.getElementsByClassName(
+    'ship-placement-container'
+  )[0];
+  const carrier = document.getElementById('carrier');
+  const battleship = document.getElementById('battleship');
+  const destroyer = document.getElementById('destroyer');
+  const submarine = document.getElementById('submarine');
+  const patrolBoat = document.getElementById('patrol-boat');
 
   const renderGameBoard = (board, container, player) => {
     if (player === 'human-player') {
@@ -92,6 +96,44 @@ const DisplayController = (() => {
     return board;
   };
 
+  const toggleRotateShips = (horizontal) => {
+    if (horizontal) {
+      carrier.style.gridTemplateColumns = '30px';
+      carrier.style.gridTemplateRows = 'repeat(5, 30px)';
+      carrier.style.width = '30px';
+      battleship.style.gridTemplateColumns = '30px';
+      battleship.style.gridTemplateRows = 'repeat(4, 30px)';
+      battleship.style.width = '30px';
+      destroyer.style.gridTemplateColumns = '30px';
+      destroyer.style.gridTemplateRows = 'repeat(3, 30px)';
+      destroyer.style.width = '30px';
+      submarine.style.gridTemplateColumns = '30px';
+      submarine.style.gridTemplateRows = 'repeat(3, 30px)';
+      submarine.style.width = '30px';
+      patrolBoat.style.gridTemplateColumns = '30px';
+      patrolBoat.style.gridTemplateRows = 'repeat(2, 30px)';
+      patrolBoat.style.width = '30px';
+      shipPlacementContainer.style.flexDirection = 'row';
+    } else {
+      carrier.style.gridTemplateColumns = 'repeat(5, 30px)';
+      carrier.style.gridTemplateRows = '30px';
+      carrier.style.width = '150px';
+      battleship.style.gridTemplateColumns = 'repeat(4, 30px)';
+      battleship.style.gridTemplateRows = '30px';
+      battleship.style.width = '120px';
+      destroyer.style.gridTemplateColumns = 'repeat(3, 30px)';
+      destroyer.style.gridTemplateRows = '30px';
+      destroyer.style.width = '90px';
+      submarine.style.gridTemplateColumns = 'repeat(3, 30px)';
+      submarine.style.gridTemplateRows = '30px';
+      submarine.style.width = '90px';
+      patrolBoat.style.gridTemplateColumns = 'repeat(2, 30px)';
+      patrolBoat.style.gridTemplateRows = '30px';
+      patrolBoat.style.width = '60px';
+      shipPlacementContainer.style.flexDirection = 'column';
+    }
+  };
+
   return {
     renderGameBoard,
     stylePlayerCells,
@@ -99,6 +141,7 @@ const DisplayController = (() => {
     clearContainer,
     displayWinMessage,
     getCurrentBoard,
+    toggleRotateShips,
   };
 })();
 

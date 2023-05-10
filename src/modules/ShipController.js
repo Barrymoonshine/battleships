@@ -27,7 +27,7 @@ const ShipController = (() => {
       battleship,
       destroyer,
       submarine,
-      patrolBoat,
+      patrolBoat
     );
   };
 
