@@ -10,6 +10,11 @@ const DisplayController = (() => {
   const destroyer = document.getElementById('destroyer');
   const submarine = document.getElementById('submarine');
   const patrolBoat = document.getElementById('patrol-boat');
+  const shipsContainer = document.getElementsByClassName(
+    'ship-placement-container'
+  )[0];
+  const dragDropContainer = document.getElementById('drag-drop-container');
+  const aiBoardContainer = document.getElementById('board-container-two');
 
   const renderGameBoard = (board, container, player) => {
     if (player === 'human-player') {
@@ -134,6 +139,18 @@ const DisplayController = (() => {
     }
   };
 
+  const hideShips = () => {
+    shipsContainer.style.display = 'none';
+  };
+
+  const hideDragDropContainer = () => {
+    dragDropContainer.style.display = 'none';
+  };
+
+  const displayAiBoard = () => {
+    aiBoardContainer.style.display = 'grid';
+  };
+
   return {
     renderGameBoard,
     stylePlayerCells,
@@ -142,6 +159,9 @@ const DisplayController = (() => {
     displayWinMessage,
     getCurrentBoard,
     toggleRotateShips,
+    hideShips,
+    hideDragDropContainer,
+    displayAiBoard,
   };
 })();
 

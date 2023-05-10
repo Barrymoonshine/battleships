@@ -112,3 +112,7 @@ ul {
 .invalid-drop {
   background-color: red;
 }
+
+.start-button-container {
+  display: none;
+}

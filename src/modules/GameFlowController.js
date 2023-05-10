@@ -14,6 +14,7 @@ const GameFlowController = (() => {
   const shipPlacementContainer = document.getElementsByClassName(
     'ship-placement-container'
   )[0];
+  const startGameButton = document.getElementById('start-game-button');
 
   // Generate players
   const humanPlayer = PlayerController.PlayerFactory('Player one');
@@ -21,7 +22,7 @@ const GameFlowController = (() => {
 
   // Generate boards
   let playerBoard = GameBoardController.createBoard();
-  let aiBoard = GameBoardController.createBoard();
+  const aiBoard = GameBoardController.createBoard();
 
   // Generate ships
   ShipController.createPlayerShips();
@@ -103,11 +104,11 @@ const GameFlowController = (() => {
     }
   };
 
-  const startGame = () => {
-    // Randomly place ships for Ai and human player
+  const initiateGameSetUp = () => {
+    // Randomly place ships for Ai player only
     GameBoardController.placeShipsRandomly(aiBoard, aiShips);
 
-    // Render populated game boards
+    // Render game boards
     DisplayController.renderGameBoard(aiBoard, aiContainer, 'ai-player');
     DisplayController.renderGameBoard(
       playerBoard,
@@ -118,32 +119,67 @@ const GameFlowController = (() => {
     // Style cells
     DisplayController.stylePlayerCells(humanPlayerCells);
     DisplayController.styleAiCells(aiPlayerCells);
+  };
 
+  const startGame = () => {
+    // hide drag and drop container
+    DisplayController.hideDragDropContainer();
+    // Show AI board
+    DisplayController.displayAiBoard();
     // Add event listeners
     addEvtListeners();
   };
 
-  const clearContainers = () => {
+  const clearPlayerContainer = () => {
     DisplayController.clearContainer(playerContainer);
-    DisplayController.clearContainer(aiContainer);
   };
 
-  const clearGameBoardArrays = () => {
+  const clearPlayerBoard = () => {
     playerBoard = GameBoardController.createBoard();
-    aiBoard = GameBoardController.createBoard();
+  };
+
+  const placePlayerShipsRandomly = () => {
+    GameBoardController.placeShipsRandomly(playerBoard, playerShips);
+  };
+
+  const stylePlayerCells = () => {
+    DisplayController.stylePlayerCells(humanPlayerCells);
+  };
+
+  const renderPlayerBoard = () => {
+    DisplayController.renderGameBoard(
+      playerBoard,
+      playerContainer,
+      'human-player'
+    );
+  };
+
+  const hideShips = () => {
+    DisplayController.hideShips();
+  };
+
+  const handleRandomiseBtn = () => {
+    clearPlayerContainer();
+    clearPlayerBoard();
+    placePlayerShipsRandomly();
+    renderPlayerBoard();
+    stylePlayerCells();
+    hideShips();
   };
 
   randomiseShipsBtn.addEventListener('click', () => {
-    clearContainers();
-    clearGameBoardArrays();
-    startGame();
+    handleRandomiseBtn();
   });
 
   shipPlacementContainer.addEventListener('mousedown', (e) => {
     DragDropController.handleDragStart(e);
   });
 
-  return { startGame };
+  startGameButton.addEventListener('click', () => {
+    startGame();
+  });
+
+  return { initiateGameSetUp };
 })();
 
 export default GameFlowController;
