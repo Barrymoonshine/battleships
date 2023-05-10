@@ -75,12 +75,30 @@ const DisplayController = (() => {
     ${currentPlayer.name} is the winner! Play again?`;
   };
 
+  const getCurrentBoard = (board = []) => {
+    // Nested for loop to create a game board as a 2d array
+    for (let i = 0; i < 10; i += 1) {
+      board[i] = [];
+      for (let j = 0; j < 10; j += 1) {
+        const cell = document.getElementById(`${i}${j}`);
+        const cellContent = cell.textContent;
+        if (cellContent === null) {
+          board[i][j] = '';
+        } else {
+          board[i][j] = cellContent;
+        }
+      }
+    }
+    return board;
+  };
+
   return {
     renderGameBoard,
     stylePlayerCells,
     styleAiCells,
     clearContainer,
     displayWinMessage,
+    getCurrentBoard,
   };
 })();
 

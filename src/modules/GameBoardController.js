@@ -53,9 +53,9 @@ const GameBoardController = (() => {
     return false;
   };
 
-  const areCellsFree = (board, horizontal, row, column, ship) => {
+  const areCellsFree = (board, horizontal, row, column, shipLength) => {
     if (horizontal) {
-      for (let i = column; i < column + ship.length; i += 1) {
+      for (let i = column; i < column + shipLength; i += 1) {
         if (board[row][i] === '') {
           // Cell is free, check that adjacent cells are also free
           if (areAdjacentCellsFree(board, row, i)) {
@@ -71,7 +71,7 @@ const GameBoardController = (() => {
       }
     }
     if (!horizontal) {
-      for (let i = row; i < row + ship.length; i += 1) {
+      for (let i = row; i < row + shipLength; i += 1) {
         if (board[i][column] === '') {
           // Cell is free, check that adjacent cells are also free
           if (areAdjacentCellsFree(board, i, column)) {
@@ -91,7 +91,7 @@ const GameBoardController = (() => {
 
   const placeShip = (board, horizontal, row, column, ship) => {
     // Check if there is horizontal space to place the ship
-    if (!areCellsFree(board, horizontal, row, column, ship)) {
+    if (!areCellsFree(board, horizontal, row, column, ship.length)) {
       return false;
     }
     if (horizontal) {
@@ -195,6 +195,7 @@ const GameBoardController = (() => {
     receiveAttack,
     areAllShipsSunk,
     placeShipsRandomly,
+    areCellsFree,
   };
 })();
 

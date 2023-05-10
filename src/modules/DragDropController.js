@@ -1,3 +1,6 @@
+import GameBoardController from './GameBoardController.js';
+import DisplayController from './DisplayController.js';
+
 const DragDropController = (() => {
   // Initialise the shipLength variable
   let shipLength = 0;
@@ -5,19 +8,22 @@ const DragDropController = (() => {
   // Initialise the target ships name
   let targetShip = '';
 
-  const checkIfCellsFree = (target) => {
-    // Look for cells already occupied, plus cells within 1 square radius
-    // Update for vertical placement later
+  const areCellsFree = (target) => {
+    const cell = target.id;
+    const row = Number(cell.charAt(0));
+    const column = Number(cell.charAt(1));
+    const currentPlayerBoard = DisplayController.getCurrentBoard();
 
-    if (target.id.charAt(1) === '9') {
-      // No available space for any ship being placed horizontally
-      // as far right cell
-
-      return false;
-    }
-    let secondDigit = Number(target.id.charAt(1));
-    secondDigit += shipLength - 1;
-    if (secondDigit > 9) {
+    // True is the second parameter as currently only checking for horizontal placings
+    if (
+      !GameBoardController.areCellsFree(
+        currentPlayerBoard,
+        true,
+        row,
+        column,
+        Number(shipLength)
+      )
+    ) {
       return false;
     }
     return true;
@@ -76,7 +82,7 @@ const DragDropController = (() => {
   };
 
   const drop = (e) => {
-    if (!checkIfCellsFree(e.target, shipLength)) {
+    if (!areCellsFree(e.target, shipLength)) {
       // Remove invalid drop class, but don't drop element
       removeInvalidDrop(e.target);
     } else {
@@ -103,7 +109,7 @@ const DragDropController = (() => {
   };
 
   const dragLeave = (e) => {
-    if (!checkIfCellsFree(e.target, shipLength)) {
+    if (!areCellsFree(e.target, shipLength)) {
       // if invalid drop, style cell as red
       removeInvalidDrop(e.target);
       removeDragOver(e.target);
@@ -114,7 +120,7 @@ const DragDropController = (() => {
 
   const dragOver = (e) => {
     e.preventDefault();
-    if (!checkIfCellsFree(e.target, shipLength)) {
+    if (!areCellsFree(e.target, shipLength)) {
       // if invalid drop, style cell as red
       addInvalidDropOver(e.target);
       removeDragOver(e.target);
@@ -125,7 +131,7 @@ const DragDropController = (() => {
 
   const dragEnter = (e) => {
     e.preventDefault();
-    if (!checkIfCellsFree(e.target, shipLength)) {
+    if (!areCellsFree(e.target, shipLength)) {
       // if invalid drop, style cell as red
       addInvalidDropOver(e.target);
     } else {
