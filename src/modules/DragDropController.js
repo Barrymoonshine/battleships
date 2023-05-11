@@ -181,7 +181,6 @@ const DragDropController = (() => {
   };
 
   const rotateShips = () => {
-    console.log('Rotate has been pressed!');
     DisplayController.toggleRotateShips(horizontal);
     toggleHorizontal();
   };

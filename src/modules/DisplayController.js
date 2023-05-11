@@ -3,11 +3,11 @@ const DisplayController = (() => {
   const shipPlacementContainer = document.getElementsByClassName(
     'ship-placement-container'
   )[0];
-  const carrier = document.getElementById('carrier');
-  const battleship = document.getElementById('battleship');
-  const destroyer = document.getElementById('destroyer');
-  const submarine = document.getElementById('submarine');
-  const patrolBoat = document.getElementById('patrol-boat');
+  let carrier = document.getElementById('carrier');
+  let battleship = document.getElementById('battleship');
+  let destroyer = document.getElementById('destroyer');
+  let submarine = document.getElementById('submarine');
+  let patrolBoat = document.getElementById('patrol-boat');
   const shipsContainer = document.getElementsByClassName(
     'ship-placement-container'
   )[0];
@@ -185,6 +185,14 @@ const DisplayController = (() => {
     messageContainer.style.visibility = 'hidden';
   };
 
+  const refreshShipGetters = () => {
+    carrier = document.getElementById('carrier');
+    battleship = document.getElementById('battleship');
+    destroyer = document.getElementById('destroyer');
+    submarine = document.getElementById('submarine');
+    patrolBoat = document.getElementById('patrol-boat');
+  };
+
   const generateNewShips = () => {
     carrierContainer.innerHTML = `
     <div class="carrier" id="carrier" data-index-number="5" draggable="true">
@@ -227,6 +235,8 @@ const DisplayController = (() => {
       <div class="ship-cell" data-ship-name="patrol-boat"></div>
     </div>
     `;
+
+    refreshShipGetters();
   };
 
   return {
