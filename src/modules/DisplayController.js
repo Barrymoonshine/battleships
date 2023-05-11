@@ -52,8 +52,6 @@ const DisplayController = (() => {
     }
   };
 
-  // Update function later so that AI cells are obscured from view
-  // Other than hits and misses
   const styleAiCells = (cells) => {
     for (let i = 0; i < cells.length; i += 1) {
       // if hit
@@ -64,10 +62,7 @@ const DisplayController = (() => {
       else if (cells[i].innerText === 'M') {
         cells[i].style.backgroundColor = '#38bdf8';
       }
-      // if ship present
-      else if (cells[i].innerText !== '') {
-        cells[i].style.backgroundColor = '#fde047';
-      }
+      // Don't style cells with ships present
     }
   };
 

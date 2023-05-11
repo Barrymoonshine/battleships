@@ -71,7 +71,7 @@ const GameFlowController = (() => {
     DisplayController.clearContainer(aiContainer);
     // Render and style the updated board
     DisplayController.renderGameBoard(board, aiContainer, 'ai-player');
-    DisplayController.stylePlayerCells(aiPlayerCells);
+    DisplayController.styleAiCells(aiPlayerCells);
   };
 
   const playAiRound = () => {
