@@ -26,24 +26,13 @@ const DisplayController = (() => {
   const patrolBoatContainer = document.getElementById('patrol-boat-container');
 
   const renderGameBoard = (board, container, player) => {
-    if (player === 'human-player') {
-      // Attribute id's to the human player board as these are used for drag and drop
-      board.forEach((row, rowIndex) => {
-        row.forEach((columnCell, columnIndex) => {
-          container.innerHTML += `
-            <div class="${player}-cells" id="${rowIndex}${columnIndex}" data-index-number="${rowIndex}${columnIndex}">${columnCell}</div>
+    board.forEach((row, rowIndex) => {
+      row.forEach((columnCell, columnIndex) => {
+        container.innerHTML += `
+            <div class="${player}-cells" id="${rowIndex}${columnIndex}">${columnCell}</div>
             `;
-        });
       });
-    } else {
-      board.forEach((row, rowIndex) => {
-        row.forEach((columnCell, columnIndex) => {
-          container.innerHTML += `
-            <div class="${player}-cells" data-index-number="${rowIndex}${columnIndex}">${columnCell}</div>
-            `;
-        });
-      });
-    }
+    });
   };
 
   const stylePlayerCells = (cells) => {

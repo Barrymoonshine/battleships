@@ -41,7 +41,7 @@ const GameFlowController = (() => {
   const addEvtListeners = () => {
     for (let i = 0; i < aiPlayerCells.length; i += 1) {
       aiPlayerCells[i].addEventListener('click', (e) => {
-        const coOrdinates = e.target.getAttribute('data-index-number');
+        const coOrdinates = e.target.id;
         playHumanRound(coOrdinates);
       });
     }
