@@ -175,6 +175,10 @@ button:hover {
   background-color: var(--yellow);
 }
 
+.ship-cell:hover {
+  cursor: pointer;
+}
+
 .drag-over {
   background-color: var(--yellow);
 }

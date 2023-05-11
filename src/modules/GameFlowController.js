@@ -15,6 +15,7 @@ const GameFlowController = (() => {
     'ship-placement-container'
   )[0];
   const startGameButton = document.getElementById('start-game-button');
+  const playAgainButton = document.getElementById('play-again-button');
 
   // Generate players
   const humanPlayer = PlayerController.PlayerFactory('Player one');
@@ -22,7 +23,7 @@ const GameFlowController = (() => {
 
   // Generate boards
   let playerBoard = GameBoardController.createBoard();
-  const aiBoard = GameBoardController.createBoard();
+  let aiBoard = GameBoardController.createBoard();
 
   // Generate ships
   ShipController.createPlayerShips();
@@ -107,7 +108,6 @@ const GameFlowController = (() => {
   const initiateGameSetUp = () => {
     // Randomly place ships for Ai player only
     GameBoardController.placeShipsRandomly(aiBoard, aiShips);
-
     // Render game boards
     DisplayController.renderGameBoard(aiBoard, aiContainer, 'ai-player');
     DisplayController.renderGameBoard(
@@ -115,7 +115,6 @@ const GameFlowController = (() => {
       playerContainer,
       'human-player'
     );
-
     // Style cells
     DisplayController.stylePlayerCells(humanPlayerCells);
     DisplayController.styleAiCells(aiPlayerCells);
@@ -155,6 +154,25 @@ const GameFlowController = (() => {
     DisplayController.displayStartButton();
   };
 
+  const resetGame = () => {
+    // hide Ai board container
+    DisplayController.hideAiBoard();
+    // Clear both containers
+    DisplayController.clearContainer(playerContainer);
+    DisplayController.clearContainer(aiContainer);
+    // Create new boards
+    playerBoard = GameBoardController.createBoard();
+    aiBoard = GameBoardController.createBoard();
+    // Hide winning message container
+    DisplayController.hideWinningMessage();
+    // Show drag and drop container and ships container
+    DisplayController.displayDragDropContainer();
+    DisplayController.displayShips();
+    DisplayController.generateNewShips();
+    // Clear and render both boards
+    initiateGameSetUp();
+  };
+
   randomiseShipsBtn.addEventListener('click', () => {
     handleRandomiseBtn();
   });
@@ -165,6 +183,10 @@ const GameFlowController = (() => {
 
   startGameButton.addEventListener('click', () => {
     startGame();
+  });
+
+  playAgainButton.addEventListener('click', () => {
+    resetGame();
   });
 
   return { initiateGameSetUp };

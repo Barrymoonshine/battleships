@@ -19,6 +19,11 @@ const DisplayController = (() => {
   const winningMessageContainer = document.getElementById(
     'winning-message-container'
   );
+  const carrierContainer = document.getElementById('carrier-container');
+  const battleshipContainer = document.getElementById('battleship-container');
+  const destroyerContainer = document.getElementById('destroyer-container');
+  const submarineContainer = document.getElementById('submarine-container');
+  const patrolBoatContainer = document.getElementById('patrol-boat-container');
 
   const renderGameBoard = (board, container, player) => {
     if (player === 'human-player') {
@@ -90,7 +95,7 @@ const DisplayController = (() => {
   };
 
   const getCurrentBoard = (board = []) => {
-    // Nested for loop to create a game board as a 2d array
+    // Nested for create a 2d array using DOM text
     for (let i = 0; i < 10; i += 1) {
       board[i] = [];
       for (let j = 0; j < 10; j += 1) {
@@ -152,6 +157,14 @@ const DisplayController = (() => {
     dragDropContainer.style.display = 'none';
   };
 
+  const displayShips = () => {
+    shipsContainer.style.display = 'flex';
+  };
+
+  const displayDragDropContainer = () => {
+    dragDropContainer.style.display = 'flex';
+  };
+
   const displayAiBoard = () => {
     aiBoardContainer.style.display = 'grid';
   };
@@ -162,6 +175,58 @@ const DisplayController = (() => {
 
   const hideStartButton = () => {
     startButtonContainer.style.display = 'none';
+  };
+
+  const hideAiBoard = () => {
+    aiBoardContainer.style.display = 'none';
+  };
+
+  const hideWinningMessage = () => {
+    messageContainer.style.visibility = 'hidden';
+  };
+
+  const generateNewShips = () => {
+    carrierContainer.innerHTML = `
+    <div class="carrier" id="carrier" data-index-number="5" draggable="true">
+      <div class="ship-cell" data-ship-name="carrier"></div>
+      <div class="ship-cell" data-ship-name="carrier"></div>
+      <div class="ship-cell" data-ship-name="carrier"></div>
+      <div class="ship-cell" data-ship-name="carrier"></div>
+      <div class="ship-cell" data-ship-name="carrier"></div>
+    </div>
+    `;
+
+    battleshipContainer.innerHTML = `
+    <div class="battleship" id="battleship" data-index-number="4" draggable="true">
+      <div class="ship-cell" data-ship-name="battleship"></div>
+      <div class="ship-cell" data-ship-name="battleship"></div>
+      <div class="ship-cell" data-ship-name="battleship"></div>
+      <div class="ship-cell" data-ship-name="battleship"></div>
+    </div>
+    `;
+
+    destroyerContainer.innerHTML = `
+    <div class="destroyer" id="destroyer" data-index-number="3" draggable="true">
+      <div class="ship-cell" data-ship-name="destroyer"></div>
+      <div class="ship-cell" data-ship-name="destroyer"></div>
+      <div class="ship-cell" data-ship-name="destroyer"></div>
+    </div>
+    `;
+
+    submarineContainer.innerHTML = ` 
+    <div class="submarine" id="submarine" data-index-number="3" draggable="true">
+      <div class="ship-cell" data-ship-name="submarine"></div>
+      <div class="ship-cell" data-ship-name="submarine"></div>
+      <div class="ship-cell" data-ship-name="submarine"></div>
+    </div>
+    `;
+
+    patrolBoatContainer.innerHTML = `
+    <div class="patrol-boat" id="patrol-boat" data-index-number="2" draggable="true">
+      <div class="ship-cell" data-ship-name="patrol-boat"></div>
+      <div class="ship-cell" data-ship-name="patrol-boat"></div>
+    </div>
+    `;
   };
 
   return {
@@ -177,6 +242,11 @@ const DisplayController = (() => {
     displayAiBoard,
     displayStartButton,
     hideStartButton,
+    hideAiBoard,
+    hideWinningMessage,
+    displayShips,
+    displayDragDropContainer,
+    generateNewShips,
   };
 })();
 
