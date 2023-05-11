@@ -25,13 +25,19 @@ const GameFlowController = (() => {
   let playerBoard = [];
   let aiBoard = [];
 
-  // Generate ships
-  ShipController.createPlayerShips();
-  ShipController.createAiShips();
-  const playerShips = ShipController.getPlayerShips();
-  const aiShips = ShipController.getAiShips();
+  // Initialise ship variables for use in module
+  let playerShips = [];
+  let aiShips = [];
 
-  const generateNewBoards = () => {
+  const createNewShips = () => {
+    ShipController.resetShips();
+    ShipController.createPlayerShips();
+    ShipController.createAiShips();
+    playerShips = ShipController.getPlayerShips();
+    aiShips = ShipController.getAiShips();
+  };
+
+  const createNewBoards = () => {
     playerBoard = GameBoardController.createBoard();
     aiBoard = GameBoardController.createBoard();
   };
@@ -116,7 +122,9 @@ const GameFlowController = (() => {
 
   const initiateGameSetUp = () => {
     // Generate boards
-    generateNewBoards();
+    createNewBoards();
+    // Create ships
+    createNewShips();
     // Randomly place ships for Ai player only
     GameBoardController.placeShipsRandomly(aiBoard, aiShips);
     // Render game boards
@@ -157,22 +165,23 @@ const GameFlowController = (() => {
     DisplayController.displayStartButton();
   };
 
+  const clearContainers = () => {
+    DisplayController.clearContainer(aiContainer);
+    DisplayController.clearContainer(playerContainer);
+  };
+
   const resetGame = () => {
     // hide Ai board container
     DisplayController.hideAiBoard();
-    // Clear both containers
-    DisplayController.clearContainer(playerContainer);
-    DisplayController.clearContainer(aiContainer);
-    // Create new boards
-    playerBoard = GameBoardController.createBoard();
-    aiBoard = GameBoardController.createBoard();
+    // Clear old containers
+    clearContainers();
     // Hide winning message container
     DisplayController.hideWinningMessage();
     // Show drag and drop container and ships container
     DisplayController.displayDragDropContainer();
     DisplayController.displayShips();
     DisplayController.generateNewShips();
-    // Clear and render both boards
+    // Initiate new game set up
     initiateGameSetUp();
   };
 
