@@ -98,6 +98,7 @@ const DragDropController = (() => {
   const checkForStartGame = () => {
     const currentPlayerBoard = DisplayController.getCurrentBoard();
     if (GameBoardController.areAllShipsPlaced(currentPlayerBoard)) {
+      DisplayController.hideShips();
       DisplayController.displayStartButton();
     } else {
       // Do nothing, as not all ships have been placed

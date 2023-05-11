@@ -4,15 +4,29 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <script src="main.js" defer></script>
     <title>Battleships</title>
   </head>
   <body>
     <div class="header">Battleships</div>
-    <div id="message-container"></div>
+    <div id="message-container">
+      <div id="winning-message-container"></div>
+      <button id="play-again-button">Play again?</button>
+    </div>
     <div class="boards-container">
       <div class="player-container">
         <div id="drag-drop-container">
-          Drag and drop
+          <div class="drag-drop-title">Place your ships</div>
+          <div class="drag-drop-button-container">
+            <button id="rotate-ships-button">Rotate ships</button>
+            <button id="randomise-ships-btn">Randomise</button>
+          </div>
           <div class="ship-placement-container">
             <div id="carrier-container">
               <div
@@ -77,18 +91,20 @@
               </div>
             </div>
           </div>
-          <div id="rotate-button-container">
-            <button id="rotate-ships-button">Rotate ships</button>
-            <button id="randomise-ships-btn">Randomise</button>
+          <div class="start-button-container">
+            <button id="start-game-button">Start Game</button>
           </div>
         </div>
         <div id="board-container-one"></div>
       </div>
       <div id="board-container-two"></div>
     </div>
-    <div class="start-button-container">
-      <button id="start-game-button">Start Game</button>
+    <div class="footer">
+      <p>
+        © Made by
+        <a href="https://github.com/Barrymoonshine">Barry Moonshine</a> for
+        <a href="https://www.theodinproject.com/">The Odin Project</a>
+      </p>
     </div>
-    <script src="main.js"></script>
   </body>
 </html>

@@ -1,27 +1,97 @@
+:root {
+  --off-white: #f8fafc;
+  --black: #030712;
+  --turquoise: hsla(180, 74%, 47%, 1);
+  --grey: #e2e8f0;
+  --yellow: #fde047;
+  --red: #f87171;
+  --sky: #38bdf8;
+}
+
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: var(--black);
   height: 100vh;
   width: 100vw;
-  gap: 30px;
+  gap: 10px;
   margin: 0px;
+  font-family: 'VT323', monospace;
+  background: linear-gradient(0deg, var(--turquoise), rgba(0, 0, 0, 0) 30%),
+    url('https://grainy-gradients.vercel.app/noise.svg');
 }
 
 ul {
   list-style: none;
 }
 
+button {
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--black);
+  padding: 10px 20px 10px 20px;
+  border-radius: 10px;
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+}
+
+button:hover {
+  border: 2px solid var(--turquoise);
+}
+
+.header {
+  padding-top: 50px;
+  margin-bottom: 10px;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+#message-container {
+  visibility: hidden;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: 110px;
+}
+
 .boards-container {
   display: flex;
+  width: 100vh;
+}
+
+.player-container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
+.drag-drop-title {
+  padding-top: 15px;
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+#drag-drop-container {
+  width: 300px;
+  height: 460px;
+}
+
+.drag-drop-button-container {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
 #board-container-one {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
-  border: 1px solid black;
+  border: 1px solid var(--black);
   margin: 20px;
 }
 
@@ -29,12 +99,12 @@ ul {
   display: none;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
-  border: 1px solid black;
+  border: 1px solid var(--black);
   margin: 20px;
 }
 
 .human-player-cells {
-  border: 1px solid black;
+  border: 1px solid var(--black);
   width: 40px;
   height: 40px;
   /* Hide text */
@@ -44,7 +114,7 @@ ul {
 }
 
 .ai-player-cells {
-  border: 1px solid black;
+  border: 1px solid var(--black);
   width: 40px;
   height: 40px;
   /* Hide text */
@@ -101,18 +171,29 @@ ul {
 .ship-cell {
   height: 30px;
   width: 30px;
-  border: 1px solid black;
-  background-color: #f0db4f;
+  border: 1px solid var(--black);
+  background-color: var(--yellow);
 }
 
 .drag-over {
-  background-color: #f5e689;
+  background-color: var(--yellow);
 }
 
 .invalid-drop {
-  background-color: red;
+  background-color: var(--red);
 }
 
 .start-button-container {
   display: none;
+  justify-content: center;
+  margin-right: 40px;
+}
+
+.footer {
+  font-size: 20px;
+  padding: 50px 0 10px 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
 }

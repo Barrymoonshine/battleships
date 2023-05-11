@@ -135,16 +135,23 @@ const GameFlowController = (() => {
   };
 
   const handleRandomiseBtn = () => {
+    // Clear the container
     DisplayController.clearContainer(playerContainer);
+    // Create a blank board to populate
     playerBoard = GameBoardController.createBoard();
+    // Populate the blank board with randomly placed ships
     GameBoardController.placeShipsRandomly(playerBoard, playerShips);
+    // Render the board
     DisplayController.renderGameBoard(
       playerBoard,
       playerContainer,
       'human-player'
     );
+    // Style the cells
     DisplayController.stylePlayerCells(humanPlayerCells);
+    // Hide the drag and drop ships
     DisplayController.hideShips();
+    // Show the start game button
     DisplayController.displayStartButton();
   };
 

@@ -1,5 +1,3 @@
-import ShipController from './ShipController.js';
-
 const DisplayController = (() => {
   const messageContainer = document.getElementById('message-container');
   const shipPlacementContainer = document.getElementsByClassName(
@@ -18,6 +16,9 @@ const DisplayController = (() => {
   const startButtonContainer = document.getElementsByClassName(
     'start-button-container'
   )[0];
+  const winningMessageContainer = document.getElementById(
+    'winning-message-container'
+  );
 
   const renderGameBoard = (board, container, player) => {
     if (player === 'human-player') {
@@ -44,15 +45,15 @@ const DisplayController = (() => {
     for (let i = 0; i < cells.length; i += 1) {
       // if hit
       if (cells[i].innerText === 'H') {
-        cells[i].style.backgroundColor = 'red';
+        cells[i].style.backgroundColor = '#f87171';
       }
       // if miss
       else if (cells[i].innerText === 'M') {
-        cells[i].style.backgroundColor = 'orange';
+        cells[i].style.backgroundColor = '#38bdf8';
       }
       // if ship present
       else if (cells[i].innerText !== '') {
-        cells[i].style.backgroundColor = 'blue';
+        cells[i].style.backgroundColor = ' #fde047';
       }
     }
   };
@@ -63,15 +64,15 @@ const DisplayController = (() => {
     for (let i = 0; i < cells.length; i += 1) {
       // if hit
       if (cells[i].innerText === 'H') {
-        cells[i].style.backgroundColor = 'red';
+        cells[i].style.backgroundColor = '#f87171';
       }
       // if miss
       else if (cells[i].innerText === 'M') {
-        cells[i].style.backgroundColor = 'orange';
+        cells[i].style.backgroundColor = '#38bdf8';
       }
       // if ship present
       else if (cells[i].innerText !== '') {
-        cells[i].style.backgroundColor = 'blue';
+        cells[i].style.backgroundColor = '#fde047';
       }
     }
   };
@@ -83,7 +84,8 @@ const DisplayController = (() => {
   };
 
   const displayWinMessage = (currentPlayer) => {
-    messageContainer.innerText = `
+    messageContainer.style.visibility = 'visible';
+    winningMessageContainer.innerText = `
     ${currentPlayer.name} is the winner! Play again?`;
   };
 

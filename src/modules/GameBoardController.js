@@ -140,10 +140,10 @@ const GameBoardController = (() => {
     let row = RandomServiceProvider.randomNumberGenerator(0, 9);
     const minVal = 0;
     if (horizontal) {
-      // If the ship is being place horizontally, any row value is potentially valid
+      // If the ship is being placed horizontally, any row value is potentially valid
       return row;
     }
-    // else if the ship is being place vertically,
+    // else if the ship is being placed vertically,
     // The row value has to be reduced by the length of the ship to provide
     // The opportunity for available space
     row -= ship.length;
