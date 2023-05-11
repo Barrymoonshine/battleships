@@ -3,11 +3,11 @@ const DisplayController = (() => {
   const shipPlacementContainer = document.getElementsByClassName(
     'ship-placement-container'
   )[0];
-  let carrier = document.getElementById('carrier');
-  let battleship = document.getElementById('battleship');
-  let destroyer = document.getElementById('destroyer');
-  let submarine = document.getElementById('submarine');
-  let patrolBoat = document.getElementById('patrol-boat');
+  const carrier = document.getElementById('carrier');
+  const battleship = document.getElementById('battleship');
+  const destroyer = document.getElementById('destroyer');
+  const submarine = document.getElementById('submarine');
+  const patrolBoat = document.getElementById('patrol-boat');
   const shipsContainer = document.getElementsByClassName(
     'ship-placement-container'
   )[0];
@@ -62,7 +62,7 @@ const DisplayController = (() => {
       else if (cells[i].innerText === 'M') {
         cells[i].style.backgroundColor = '#38bdf8';
       }
-      // Don't style cells with ships present
+      // Don't style Ai cells with ships present
     }
   };
 
@@ -79,7 +79,6 @@ const DisplayController = (() => {
   };
 
   const getCurrentBoard = (board = []) => {
-    // Nested for create a 2d array using DOM text
     for (let i = 0; i < 10; i += 1) {
       board[i] = [];
       for (let j = 0; j < 10; j += 1) {
@@ -169,58 +168,12 @@ const DisplayController = (() => {
     messageContainer.style.visibility = 'hidden';
   };
 
-  const refreshShipGetters = () => {
-    carrier = document.getElementById('carrier');
-    battleship = document.getElementById('battleship');
-    destroyer = document.getElementById('destroyer');
-    submarine = document.getElementById('submarine');
-    patrolBoat = document.getElementById('patrol-boat');
-  };
-
   const generateNewShips = () => {
-    carrierContainer.innerHTML = `
-    <div class="carrier" id="carrier" data-index-number="5" draggable="true">
-      <div class="ship-cell" data-ship-name="carrier"></div>
-      <div class="ship-cell" data-ship-name="carrier"></div>
-      <div class="ship-cell" data-ship-name="carrier"></div>
-      <div class="ship-cell" data-ship-name="carrier"></div>
-      <div class="ship-cell" data-ship-name="carrier"></div>
-    </div>
-    `;
-
-    battleshipContainer.innerHTML = `
-    <div class="battleship" id="battleship" data-index-number="4" draggable="true">
-      <div class="ship-cell" data-ship-name="battleship"></div>
-      <div class="ship-cell" data-ship-name="battleship"></div>
-      <div class="ship-cell" data-ship-name="battleship"></div>
-      <div class="ship-cell" data-ship-name="battleship"></div>
-    </div>
-    `;
-
-    destroyerContainer.innerHTML = `
-    <div class="destroyer" id="destroyer" data-index-number="3" draggable="true">
-      <div class="ship-cell" data-ship-name="destroyer"></div>
-      <div class="ship-cell" data-ship-name="destroyer"></div>
-      <div class="ship-cell" data-ship-name="destroyer"></div>
-    </div>
-    `;
-
-    submarineContainer.innerHTML = ` 
-    <div class="submarine" id="submarine" data-index-number="3" draggable="true">
-      <div class="ship-cell" data-ship-name="submarine"></div>
-      <div class="ship-cell" data-ship-name="submarine"></div>
-      <div class="ship-cell" data-ship-name="submarine"></div>
-    </div>
-    `;
-
-    patrolBoatContainer.innerHTML = `
-    <div class="patrol-boat" id="patrol-boat" data-index-number="2" draggable="true">
-      <div class="ship-cell" data-ship-name="patrol-boat"></div>
-      <div class="ship-cell" data-ship-name="patrol-boat"></div>
-    </div>
-    `;
-
-    refreshShipGetters();
+    carrierContainer.style.display = 'flex';
+    battleshipContainer.style.display = 'flex';
+    destroyerContainer.style.display = 'flex';
+    submarineContainer.style.display = 'flex';
+    patrolBoatContainer.style.display = 'flex';
   };
 
   return {

@@ -18,8 +18,6 @@ const DragDropController = (() => {
     const row = Number(cell.charAt(0));
     const column = Number(cell.charAt(1));
     const currentPlayerBoard = DisplayController.getCurrentBoard();
-
-    // True is the second parameter as currently only checking for horizontal placings
     if (
       !GameBoardController.areCellsFree(
         currentPlayerBoard,
@@ -107,13 +105,10 @@ const DragDropController = (() => {
 
   const drop = (e) => {
     if (!areCellsFree(e.target, shipLength)) {
-      // Remove invalid drop class, but don't drop element
       removeInvalidDrop(e.target);
     } else {
-      // Remove drag over
       removeDragOver(e.target);
 
-      // Loop to style all target cells
       for (let i = 0; i < shipLength; i += 1) {
         const targetCell = getCell(e.target.id, i);
         targetCell.style.backgroundColor = '#f0db4f';
@@ -121,23 +116,19 @@ const DragDropController = (() => {
         targetCell.innerText = `${targetShip}`;
       }
 
-      // Remove ship from D&D list
       const targetShipContainer = document.getElementById(
         `${targetShip}-container`
       );
-      targetShipContainer.innerHTML = '';
+      targetShipContainer.style.display = 'none';
 
-      // Remove listeners so ship can't be placed again
       removeDDListeners();
 
-      // Check for all ships
       checkForStartGame();
     }
   };
 
   const dragLeave = (e) => {
     if (!areCellsFree(e.target, shipLength)) {
-      // if invalid drop, style cell as red
       removeInvalidDrop(e.target);
       removeDragOver(e.target);
     } else {
@@ -148,7 +139,6 @@ const DragDropController = (() => {
   const dragOver = (e) => {
     e.preventDefault();
     if (!areCellsFree(e.target, shipLength)) {
-      // if invalid drop, style cell as red
       addInvalidDropOver(e.target);
       removeDragOver(e.target);
     } else {
@@ -159,7 +149,6 @@ const DragDropController = (() => {
   const dragEnter = (e) => {
     e.preventDefault();
     if (!areCellsFree(e.target, shipLength)) {
-      // if invalid drop, style cell as red
       addInvalidDropOver(e.target);
     } else {
       addDragOver(e.target);
@@ -185,9 +174,8 @@ const DragDropController = (() => {
     toggleHorizontal();
   };
 
-  // Add event listeners
   const dragStart = (e) => {
-    // Provide shipLength to module scope and activate drag live
+    // Provide shipLength to module scope and activate event listeners
     shipLength = e.target.getAttribute('data-index-number');
     addDDListeners();
   };
@@ -195,7 +183,6 @@ const DragDropController = (() => {
   const handleDragStart = (e) => {
     // Provide targetShip to module scope
     targetShip = e.target.getAttribute('data-ship-name');
-    // Add dragStart event listener
     const domTargetShip = document.querySelector(`.${targetShip}`);
     domTargetShip.addEventListener('dragstart', dragStart);
   };

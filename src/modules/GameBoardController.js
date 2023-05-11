@@ -6,7 +6,6 @@ const GameBoardController = (() => {
   const columns = 10;
 
   const createBoard = (board = []) => {
-    // Nested for loop to create a game board as a 2d array
     for (let i = 0; i < rows; i += 1) {
       board[i] = [];
       for (let j = 0; j < columns; j += 1) {
@@ -90,7 +89,6 @@ const GameBoardController = (() => {
   };
 
   const placeShip = (board, horizontal, row, column, ship) => {
-    // Check if there is horizontal space to place the ship
     if (!areCellsFree(board, horizontal, row, column, ship.length)) {
       return false;
     }
@@ -108,14 +106,11 @@ const GameBoardController = (() => {
 
   const receiveAttack = (board, row, column) => {
     if (board[row][column] === 'M' || board[row][column] === 'H') {
-      // Miss or hit already present, do nothing and exit function
       return false;
     }
     if (board[row][column] === '') {
-      // Cell empty, place a missed shot
       board[row][column] = 'M';
     } else {
-      // Else cell contains ship, process a hit!
       const shipName = board[row][column];
       ShipController.hitShip(shipName);
       board[row][column] = 'H';
@@ -124,7 +119,6 @@ const GameBoardController = (() => {
   };
 
   const areAllShipsSunk = (board) => {
-    // Ships occupy a total of 17 cells
     let totalHits = 0;
     board.forEach((row) => {
       row.forEach((columnCell) => {
@@ -160,7 +154,7 @@ const GameBoardController = (() => {
       // If the ship is being place vertically, any column value is potentially valid
       return column;
     }
-    // else if the ship is being place horizontally,
+    // else if the ship is being placed horizontally,
     // The column value has to be reduced by the length of the ship to provide
     // The opportunity for available space
     column -= ship.length;
@@ -175,10 +169,8 @@ const GameBoardController = (() => {
     const row = handleRow(horizontal, ship);
     const column = handleColumn(horizontal, ship);
     if (!placeShip(board, horizontal, row, column, ship)) {
-      // If space not free, try again with new coordinates
       handleRandomShipPlacement(ship, board);
     } else {
-      // Else space free
       placeShip(board, horizontal, row, column, ship);
     }
   };
@@ -190,7 +182,6 @@ const GameBoardController = (() => {
   };
 
   const areAllShipsPlaced = (board) => {
-    // Ships occupy a total of 17 cells
     let totalCellsOccupied = 0;
     board.forEach((row) => {
       row.forEach((columnCell) => {
