@@ -21,15 +21,20 @@ const GameFlowController = (() => {
   const humanPlayer = PlayerController.PlayerFactory('Player one');
   const aiPlayer = PlayerController.PlayerFactory('Ai');
 
-  // Generate boards
-  let playerBoard = GameBoardController.createBoard();
-  let aiBoard = GameBoardController.createBoard();
+  // Initialise board variables for use in module
+  let playerBoard = [];
+  let aiBoard = [];
 
   // Generate ships
   ShipController.createPlayerShips();
   ShipController.createAiShips();
   const playerShips = ShipController.getPlayerShips();
   const aiShips = ShipController.getAiShips();
+
+  const generateNewBoards = () => {
+    playerBoard = GameBoardController.createBoard();
+    aiBoard = GameBoardController.createBoard();
+  };
 
   const getActiveBoard = () => {
     if (PlayerController.isPlayerOneActive()) {
@@ -47,6 +52,22 @@ const GameFlowController = (() => {
     }
   };
 
+  const refreshPlayerBoard = (board) => {
+    // Clear the container
+    DisplayController.clearContainer(playerContainer);
+    // Render and style the updated board
+    DisplayController.renderGameBoard(board, playerContainer, 'human-player');
+    DisplayController.stylePlayerCells(humanPlayerCells);
+  };
+
+  const refreshAiBoard = (board) => {
+    // Clear the container
+    DisplayController.clearContainer(aiContainer);
+    // Render and style the updated board
+    DisplayController.renderGameBoard(board, aiContainer, 'ai-player');
+    DisplayController.stylePlayerCells(aiPlayerCells);
+  };
+
   const playAiRound = () => {
     // Switch the active player
     PlayerController.switchActivePlayer();
@@ -57,16 +78,8 @@ const GameFlowController = (() => {
     // Generate random Ai move
     PlayerController.generateAiMove(activeBoard);
 
-    // Clear the container
-    DisplayController.clearContainer(playerContainer);
-
-    // Render and style the updated board
-    DisplayController.renderGameBoard(
-      playerBoard,
-      playerContainer,
-      'human-player'
-    );
-    DisplayController.stylePlayerCells(humanPlayerCells);
+    // Refresh player's board after attack placed
+    refreshPlayerBoard(activeBoard);
 
     // Check for end game
     if (GameBoardController.areAllShipsSunk(activeBoard)) {
@@ -90,11 +103,7 @@ const GameFlowController = (() => {
       GameBoardController.receiveAttack(activeBoard, row, column);
 
       // Clear the container
-      DisplayController.clearContainer(aiContainer);
-
-      // Render and style the updated board
-      DisplayController.renderGameBoard(activeBoard, aiContainer, 'ai-player');
-      DisplayController.styleAiCells(aiPlayerCells);
+      refreshAiBoard(activeBoard);
 
       // Check for end game
       if (GameBoardController.areAllShipsSunk(activeBoard)) {
@@ -106,6 +115,8 @@ const GameFlowController = (() => {
   };
 
   const initiateGameSetUp = () => {
+    // Generate boards
+    generateNewBoards();
     // Randomly place ships for Ai player only
     GameBoardController.placeShipsRandomly(aiBoard, aiShips);
     // Render game boards
@@ -121,34 +132,26 @@ const GameFlowController = (() => {
   };
 
   const startGame = () => {
-    // Update the player's board
+    // Update the player's board using the ships placed in the DOM
     playerBoard = DisplayController.getCurrentBoard();
-    // hide drag and drop container
+    // Hide drag and drop container
     DisplayController.hideDragDropContainer();
     // Show AI board
     DisplayController.displayAiBoard();
     // Add event listeners
     addEvtListeners();
-    // Hide start button
+    // Hide start game button
     DisplayController.hideStartButton();
   };
 
   const handleRandomiseBtn = () => {
-    // Clear the container
-    DisplayController.clearContainer(playerContainer);
     // Create a blank board to populate
     playerBoard = GameBoardController.createBoard();
     // Populate the blank board with randomly placed ships
     GameBoardController.placeShipsRandomly(playerBoard, playerShips);
-    // Render the board
-    DisplayController.renderGameBoard(
-      playerBoard,
-      playerContainer,
-      'human-player'
-    );
-    // Style the cells
-    DisplayController.stylePlayerCells(humanPlayerCells);
-    // Hide the drag and drop ships
+    // Refresh the board
+    refreshPlayerBoard(playerBoard);
+    // Hide the DnD ships
     DisplayController.hideShips();
     // Show the start game button
     DisplayController.displayStartButton();
