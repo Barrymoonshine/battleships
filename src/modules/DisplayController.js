@@ -168,7 +168,7 @@ const DisplayController = (() => {
     messageContainer.style.visibility = 'hidden';
   };
 
-  const generateNewShips = () => {
+  const displayDropShips = () => {
     carrierContainer.style.display = 'flex';
     battleshipContainer.style.display = 'flex';
     destroyerContainer.style.display = 'flex';
@@ -193,7 +193,7 @@ const DisplayController = (() => {
     hideWinningMessage,
     displayShips,
     displayDragDropContainer,
-    generateNewShips,
+    displayDropShips,
   };
 })();
 

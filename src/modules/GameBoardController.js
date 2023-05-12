@@ -104,7 +104,7 @@ const GameBoardController = (() => {
     return board;
   };
 
-  const receiveAttack = (board, row, column) => {
+  const receiveAttack = (board, row, column, player) => {
     if (board[row][column] === 'M' || board[row][column] === 'H') {
       return false;
     }
@@ -112,7 +112,7 @@ const GameBoardController = (() => {
       board[row][column] = 'M';
     } else {
       const shipName = board[row][column];
-      ShipController.hitShip(shipName);
+      ShipController.hitShip(shipName, player);
       board[row][column] = 'H';
     }
     return board;

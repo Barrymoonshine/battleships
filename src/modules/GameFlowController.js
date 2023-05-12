@@ -49,6 +49,13 @@ const GameFlowController = (() => {
     return playerBoard;
   };
 
+  const getActivePlayer = () => {
+    if (PlayerController.isPlayerOneActive()) {
+      return humanPlayer;
+    }
+    return aiPlayer;
+  };
+
   const addEvtListeners = () => {
     for (let i = 0; i < aiPlayerCells.length; i += 1) {
       aiPlayerCells[i].addEventListener('click', (e) => {
@@ -73,7 +80,8 @@ const GameFlowController = (() => {
   const playAiRound = () => {
     PlayerController.switchActivePlayer();
     const activeBoard = getActiveBoard();
-    PlayerController.generateAiMove(activeBoard);
+    const activePlayer = getActivePlayer();
+    PlayerController.generateAiMove(activeBoard, activePlayer);
     refreshPlayerBoard(activeBoard);
     if (GameBoardController.areAllShipsSunk(activeBoard)) {
       DisplayController.displayWinMessage(aiPlayer);
@@ -87,10 +95,11 @@ const GameFlowController = (() => {
     const row = +coOrdinates.charAt(0);
     const column = +coOrdinates.charAt(1);
     const activeBoard = getActiveBoard();
+    const activePlayer = getActivePlayer();
     if (!GameBoardController.receiveAttack(activeBoard, row, column)) {
       // Do nothing as miss or hit already present in cell
     } else {
-      GameBoardController.receiveAttack(activeBoard, row, column);
+      GameBoardController.receiveAttack(activeBoard, row, column, activePlayer);
       refreshAiBoard(activeBoard);
       if (GameBoardController.areAllShipsSunk(activeBoard)) {
         DisplayController.displayWinMessage(humanPlayer);

@@ -14,13 +14,13 @@ const PlayerController = (() => {
     playerOneActive = true;
   };
 
-  const generateAiMove = (board) => {
+  const generateAiMove = (board, player) => {
     const row = RandomServiceProvider.randomNumberGenerator(0, 9);
     const column = RandomServiceProvider.randomNumberGenerator(0, 9);
-    if (!GameBoardController.receiveAttack(board, row, column)) {
+    if (!GameBoardController.receiveAttack(board, row, column, player)) {
       generateAiMove(board);
     }
-    GameBoardController.receiveAttack(board, row, column);
+    GameBoardController.receiveAttack(board, row, column, player);
     return 'Successful hit';
   };
 

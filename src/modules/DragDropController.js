@@ -103,26 +103,30 @@ const DragDropController = (() => {
     }
   };
 
+  const styleDrop = (target) => {
+    for (let i = 0; i < shipLength; i += 1) {
+      const targetCell = getCell(target.id, i);
+      targetCell.style.backgroundColor = '#f0db4f';
+      targetCell.style.border = '1px solid black';
+      targetCell.innerText = `${targetShip}`;
+    }
+  };
+
+  const hideShip = () => {
+    const targetShipContainer = document.getElementById(
+      `${targetShip}-container`
+    );
+    targetShipContainer.style.display = 'none';
+  };
+
   const drop = (e) => {
     if (!areCellsFree(e.target, shipLength)) {
       removeInvalidDrop(e.target);
     } else {
       removeDragOver(e.target);
-
-      for (let i = 0; i < shipLength; i += 1) {
-        const targetCell = getCell(e.target.id, i);
-        targetCell.style.backgroundColor = '#f0db4f';
-        targetCell.style.border = '1px solid black';
-        targetCell.innerText = `${targetShip}`;
-      }
-
-      const targetShipContainer = document.getElementById(
-        `${targetShip}-container`
-      );
-      targetShipContainer.style.display = 'none';
-
+      styleDrop(e.target);
+      hideShip();
       removeDDListeners();
-
       checkForStartGame();
     }
   };

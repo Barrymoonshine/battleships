@@ -1,5 +1,3 @@
-import PlayerController from './PlayerController.js';
-
 const ShipController = (() => {
   let playerShipContainer = [];
   let aiShipContainer = [];
@@ -43,15 +41,15 @@ const ShipController = (() => {
   const getPlayerShips = () => playerShipContainer;
   const getAiShips = () => aiShipContainer;
 
-  const findShip = (shipName) => {
-    if (PlayerController.isPlayerOneActive()) {
+  const findShip = (shipName, player) => {
+    if (player === 'Player one') {
       return playerShipContainer.find((item) => item.name === shipName);
     }
     return aiShipContainer.find((item) => item.name === shipName);
   };
 
-  const hitShip = (shipName) => {
-    const targetShip = findShip(shipName);
+  const hitShip = (shipName, player) => {
+    const targetShip = findShip(shipName, player);
     targetShip.hits += 1;
     return targetShip;
   };
