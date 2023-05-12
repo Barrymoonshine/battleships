@@ -118,16 +118,13 @@ const GameBoardController = (() => {
     return board;
   };
 
+  const flattenBoard = (board) =>
+    board.reduce((acc, cell) => [...acc, ...cell], []);
+
   const areAllShipsSunk = (board) => {
-    let totalHits = 0;
-    board.forEach((row) => {
-      row.forEach((columnCell) => {
-        if (columnCell === 'H') {
-          totalHits += 1;
-        }
-      });
-    });
-    return totalHits === 17;
+    const flatBoard = flattenBoard(board);
+    const totalHits = flatBoard.filter((cell) => cell === 'H');
+    return totalHits.length === 17;
   };
 
   const handleRow = (horizontal, ship) => {
@@ -182,15 +179,9 @@ const GameBoardController = (() => {
   };
 
   const areAllShipsPlaced = (board) => {
-    let totalCellsOccupied = 0;
-    board.forEach((row) => {
-      row.forEach((columnCell) => {
-        if (columnCell !== '') {
-          totalCellsOccupied += 1;
-        }
-      });
-    });
-    return totalCellsOccupied === 17;
+    const flatBoard = flattenBoard(board);
+    const totalShips = flatBoard.filter((cell) => cell !== '');
+    return totalShips.length === 17;
   };
 
   return {
