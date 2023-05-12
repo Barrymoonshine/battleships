@@ -123,6 +123,10 @@ button:hover {
   overflow: hidden;
 }
 
+.ai-player-cells:hover {
+  border: 1px solid var(--turquoise);
+}
+
 .player-container {
   display: flex;
 }
