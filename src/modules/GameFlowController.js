@@ -126,7 +126,6 @@ const GameFlowController = (() => {
   const startGame = () => {
     // Update the player's board using the ships placed in the DOM
     playerBoard = DisplayController.getCurrentBoard();
-    console.log(playerBoard);
     DisplayController.hideDragDropContainer();
     DisplayController.displayAiBoard();
     addEvtListeners();
