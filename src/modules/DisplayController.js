@@ -65,18 +65,21 @@ const DisplayController = (() => {
     ${currentPlayer.name} is the winner! Play again?`;
   };
 
-  const getCurrentBoard = (board) =>
-    board.forEach((row, rowIndex) => {
-      row.forEach((columnCell, columnIndex) => {
-        const cell = document.getElementById(`${rowIndex}${columnIndex}`);
-        const cellContent = cell.textContent;
-        if (cellContent === null) {
-          board[rowIndex][columnIndex] = '';
-        } else {
-          board[rowIndex][columnIndex] = cellContent;
-        }
-      });
-    });
+  const getCurrentBoard = () => {
+    const currentBoard = Array(10)
+      .fill('')
+      .map((rowCell, row) =>
+        Array(10)
+          .fill('')
+          .map(
+            (columnCell, column) =>
+              (columnCell = document.getElementById(
+                `${row}${column}`
+              ).textContent)
+          )
+      );
+    return currentBoard;
+  };
 
   const toggleRotateShips = (horizontal) => {
     if (horizontal) {
