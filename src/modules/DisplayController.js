@@ -35,35 +35,22 @@ const DisplayController = (() => {
     });
   };
 
-  const stylePlayerCells = (cells) => {
-    for (let i = 0; i < cells.length; i += 1) {
-      // if hit
-      if (cells[i].innerText === 'H') {
-        cells[i].style.backgroundColor = '#f87171';
-      }
-      // if miss
-      else if (cells[i].innerText === 'M') {
-        cells[i].style.backgroundColor = '#38bdf8';
-      }
-      // if ship present
-      else if (cells[i].innerText !== '') {
-        cells[i].style.backgroundColor = ' #fde047';
-      }
+  const styleShip = (cell, player) => {
+    if (player === 'human-player') {
+      cell.style.backgroundColor = ' #fde047';
     }
   };
 
-  const styleAiCells = (cells) => {
-    for (let i = 0; i < cells.length; i += 1) {
-      // if hit
-      if (cells[i].innerText === 'H') {
-        cells[i].style.backgroundColor = '#f87171';
+  const styleCells = (cells, player) => {
+    Array.from(cells).forEach((cell) => {
+      if (cell.innerText === 'H') {
+        cell.style.backgroundColor = '#f87171';
+      } else if (cell.innerText === 'M') {
+        cell.style.backgroundColor = '#38bdf8';
+      } else if (cell.innerText !== '') {
+        styleShip(cell, player);
       }
-      // if miss
-      else if (cells[i].innerText === 'M') {
-        cells[i].style.backgroundColor = '#38bdf8';
-      }
-      // Don't style Ai cells with ships present
-    }
+    });
   };
 
   const clearContainer = (container) => {
@@ -178,8 +165,7 @@ const DisplayController = (() => {
 
   return {
     renderGameBoard,
-    stylePlayerCells,
-    styleAiCells,
+    styleCells,
     clearContainer,
     displayWinMessage,
     getCurrentBoard,

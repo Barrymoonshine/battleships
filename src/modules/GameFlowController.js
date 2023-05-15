@@ -68,13 +68,13 @@ const GameFlowController = (() => {
   const refreshPlayerBoard = (board) => {
     DisplayController.clearContainer(playerContainer);
     DisplayController.renderGameBoard(board, playerContainer, 'human-player');
-    DisplayController.stylePlayerCells(humanPlayerCells);
+    DisplayController.styleCells(humanPlayerCells, 'human-player');
   };
 
   const refreshAiBoard = (board) => {
     DisplayController.clearContainer(aiContainer);
     DisplayController.renderGameBoard(board, aiContainer, 'ai-player');
-    DisplayController.styleAiCells(aiPlayerCells);
+    DisplayController.styleCells(aiPlayerCells, 'ai-player');
   };
 
   const playAiRound = () => {
@@ -119,8 +119,8 @@ const GameFlowController = (() => {
       playerContainer,
       'human-player'
     );
-    DisplayController.stylePlayerCells(humanPlayerCells);
-    DisplayController.styleAiCells(aiPlayerCells);
+    DisplayController.styleCells(humanPlayerCells, 'human-player');
+    DisplayController.styleCells(humanPlayerCells, 'ai-player');
   };
 
   const startGame = () => {
