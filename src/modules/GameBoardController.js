@@ -2,18 +2,10 @@ import ShipController from './ShipController.js';
 import RandomServiceProvider from './RandomServiceProvider.js';
 
 const GameBoardController = (() => {
-  const rows = 10;
-  const columns = 10;
-
-  const createBoard = (board = []) => {
-    for (let i = 0; i < rows; i += 1) {
-      board[i] = [];
-      for (let j = 0; j < columns; j += 1) {
-        board[i][j] = '';
-      }
-    }
-    return board;
-  };
+  const createBoard = () =>
+    Array(10)
+      .fill('')
+      .map(() => Array(10).fill(''));
 
   const generateAdjacentCell = (look, cell) => {
     const minVal = 0;
