@@ -49,6 +49,7 @@ const ShipController = (() => {
   };
 
   const hitShip = (shipName, player) => {
+    console.log(shipName);
     const targetShip = findShip(shipName, player);
     targetShip.hits += 1;
     return targetShip;

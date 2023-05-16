@@ -14,7 +14,7 @@ The classic game of Battleships, built with vanilla JavaScript and Test Driven D
 - Applying a unit testing process to scrutinise small manageable parts of my application logic
 - The difference between value vs. reference and when to use the toBe and toStrictEqual matchers with Jest
 
-**HTML Drag and Drop HTML API**
+**Drag and Drop HTML API**
 
 - Enabling users to manually place their ships during the pre-game set up utilsing drag events
 - Defining the player's board as the drop zone for their ships
@@ -30,5 +30,4 @@ The classic game of Battleships, built with vanilla JavaScript and Test Driven D
 - Allow another go if a ship has been hit
 - When a ship is sunk, update the surrounding cells with misses
 - Display hit status of ships during the game
-- Allow another go if a ship is hit
 - Improve UI to more clearly distinguish between a hit and a miss

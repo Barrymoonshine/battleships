@@ -8,11 +8,10 @@ const GameFlowController = (() => {
   const playerContainer = document.getElementById('board-container-one');
   const aiContainer = document.getElementById('board-container-two');
   const randomiseShipsBtn = document.getElementById('randomise-ships-btn');
-  const humanPlayerCells =
-    document.getElementsByClassName('human-player-cells');
+  const humanPlayerCells = document.getElementsByClassName('human-player-cells');
   const aiPlayerCells = document.getElementsByClassName('ai-player-cells');
   const shipPlacementContainer = document.getElementsByClassName(
-    'ship-placement-container'
+    'ship-placement-container',
   )[0];
   const startGameButton = document.getElementById('start-game-button');
   const playAgainButton = document.getElementById('play-again-button');
@@ -117,7 +116,7 @@ const GameFlowController = (() => {
     DisplayController.renderGameBoard(
       playerBoard,
       playerContainer,
-      'human-player'
+      'human-player',
     );
     DisplayController.styleCells(humanPlayerCells, 'human-player');
     DisplayController.styleCells(humanPlayerCells, 'ai-player');
