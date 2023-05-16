@@ -8,16 +8,20 @@ The classic game of Battleships, built with vanilla JavaScript and Test Driven D
 
 ## Key learning points
 
-Test Driven Development
+**Test Driven Development**
 
 - Writing tests for my public facing methods using Jest
 - Applying a unit testing process to scrutinise small manageable parts of my application logic
 - The difference between value vs. reference and when to use the toBe and toStrictEqual matchers with Jest
-  Drag and Drop HTML API
+
+**HTML Drag and Drop HTML API**
+
 - Enabling users to manually place their ships during the pre-game set up utilsing drag events
 - Defining the player's board as the drop zone for their ships
 - Applying drag effects based on the vertical or horizontal position of the ship and the ship's length
-  HTML loader webpack
+
+**HTML loader webpack**
+
 - Finally getting to grips with how the HTML Webpack loader works, and using the SRC folder for all my source code!
 
 ## Future features

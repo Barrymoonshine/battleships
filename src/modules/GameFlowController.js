@@ -152,7 +152,7 @@ const GameFlowController = (() => {
     DisplayController.hideWinningMessage();
     DisplayController.displayDragDropContainer();
     DisplayController.displayShips();
-    DisplayController.displayShips();
+    DisplayController.displayDropShips();
     initiateGameSetUp();
   };
 
