@@ -2,6 +2,8 @@
 
 [Live demo](https://barrymoonshine.github.io/battleships/)
 
+![Model](https://github.com/Barrymoonshine/battleships/blob/main/dist/battleships-screenshot.png?raw=true)
+
 ## Summary
 
 The classic game of Battleships, built with vanilla JavaScript and Test Driven Development (TDD) using the Jest testing framework.
